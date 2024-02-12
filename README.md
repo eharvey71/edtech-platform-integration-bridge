@@ -1,2 +1,2 @@
-# flask-kapp-integration-manager
-# edtech-platform-integration-bridge
+# EdTech Platform Integration Bridge
+## Kaltura Variant
