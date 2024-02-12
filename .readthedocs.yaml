@@ -12,10 +12,10 @@ build:
 
 python:
   install:
-    - requirements: docs/requirements.txt
-    - method: pip
+    requirements: docs/requirements.txt
+    method: pip
 
 # Build PDF & ePub
 formats:
-  - epub
-  - pdf
+  epub
+  pdf
