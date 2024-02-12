@@ -1,0 +1,12 @@
+get:
+  operationId: "kaltura_handlers.get_caption_asset"
+  tags:
+    - "Caption and Entry Assets (Uses Kaltura API)"
+  summary: "Retrieve current caption asset for a Kaltura entry"
+  parameters:
+    - $ref: "#/components/parameters/entry_id"
+    - $ref: "#/components/parameters/ks"
+    - $ref: "#/components/parameters/label"
+  responses:
+    "200":
+      description: "Successfully retrieved caption asset"

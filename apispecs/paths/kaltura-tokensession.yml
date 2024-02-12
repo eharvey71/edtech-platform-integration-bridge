@@ -1,0 +1,16 @@
+post:
+  operationId: "kaltura_handlers.start_ksession"
+  tags:
+    - App Token Session (Uses Kaltura API)
+  summary: "Create a session using a Kaltura App Token"
+  requestBody:
+    description: "Session info"
+    required: True
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/CreateAppTokenSession'
+    x-body-name: "payload"
+  responses:
+    "200":
+      description: "Successfully created app token session"

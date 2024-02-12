@@ -1,0 +1,4 @@
+basic:
+  type: 'http'
+  scheme: 'basic'
+  x-basicInfoFunc: auth_handler.swag_auth

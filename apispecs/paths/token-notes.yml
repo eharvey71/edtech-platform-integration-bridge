@@ -1,0 +1,45 @@
+get:
+  operationId: "notes.read_one"
+  tags:
+    - App Tokens (Integration Manager Only)
+  summary: "Read one note"
+  parameters:
+    - $ref: "#/components/parameters/note_id"
+  responses:
+    "200":
+      description: "Successfully read one note"
+  # security:
+  #   - basic: []
+put:
+  tags:
+    - App Tokens (Integration Manager Only)
+  operationId: "notes.update"
+  summary: "Update a note"
+  parameters:
+    - $ref: "#/components/parameters/note_id"
+  responses:
+    "200":
+      description: "Successfully updated note"
+  # security:
+  #   - basic: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: "object"
+          properties:
+            content:
+              type: "string"
+    x-body-name: "note"
+delete:
+  tags:
+    - App Tokens (Integration Manager Only)
+  operationId: "notes.delete"
+  summary: "Delete a note"
+  parameters:
+    - $ref: "#/components/parameters/note_id"
+  responses:
+    "204":
+      description: "Successfully deleted note"
+  # security:
+  #   - basic: []

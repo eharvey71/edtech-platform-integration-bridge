@@ -1,0 +1,10 @@
+/* static/css/style.css */
+
+.hidden {
+    display: none;
+}
+
+.required label::before {
+    content:" *";
+    color: red;
+  }

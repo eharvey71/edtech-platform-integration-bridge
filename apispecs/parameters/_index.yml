@@ -1,0 +1,41 @@
+kaltura_token_id:
+  name: "kaltura_token_id"
+  description: "ID of the token"
+  in: path
+  required: true
+  schema:
+    type: "string"
+note_id:
+  name: "note_id"
+  description: "ID of the note"
+  in: path
+  required: true
+  schema:
+    type: "string"
+entry_id:
+  name: "entry_id"
+  description: "ID of a Kaltura entry"
+  in: query
+  required: true
+  schema:
+    type: "string"
+category_id:
+  name: "category_id"
+  description: "ID of a Kaltura category"
+  in: query
+  required: true
+  schema:
+    type: "string"
+ks:
+  name: "ks"
+  description: "Kaltura session key"
+  in: query
+  required: true
+  schema:
+    type: "string"
+label:
+  name: "label"
+  description: "Label correlating to a stored app token"
+  in: query
+  schema:
+    type: "string"

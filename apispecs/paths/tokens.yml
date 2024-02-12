@@ -1,0 +1,66 @@
+get:
+  operationId: "tokens.read_all"
+  tags:
+    - App Tokens (Integration Manager Only)
+  summary: "Read the list of Kaltura App Tokens"
+  responses:
+    "200":
+      description: "Successfully read token list"
+  security:
+    - basic: []
+post:
+  operationId: "tokens.add_existing"
+  tags:
+    - App Tokens (Integration Manager Only)
+  summary: "Add a Kaltura App Token"
+  requestBody:
+    description: "Token to add"
+    required: True
+    content:
+      application/json:
+        schema:
+          type: "object"
+          properties:
+            kaltura_token_id:
+              type: "string"
+            token:
+              type: "string"
+    x-body-name: payload
+  responses:
+    "201":
+      description: "Successfully added token"
+  security:
+    - basic: []
+put:
+  operationId: "tokens.update_existing"
+  tags:
+    - App Tokens (Integration Manager Only)
+  summary: "Update a Kaltura App Token"
+  requestBody:
+    description: "Token to update"
+    required: True
+    content:
+      application/json:
+        schema:
+          type: "object"
+          properties:
+            kaltura_token_id:
+              type: "string"
+            token:
+              type: "string"
+            session_privileges:
+              type: "string"
+            session_user_id:
+              type: "string"
+            session_duration:
+              type: "integer"
+            expiry:
+              type: "integer"
+            description:
+              type: "string"
+    x-body-name: payload
+  responses:
+    "200":
+      description: "Successfully updated token"
+  security:
+    - basic: []

@@ -1,0 +1,197 @@
+# swagger.yml
+
+openapi: 3.0.0
+info:
+  title: "Abstracted APIs - Integration Management"
+  description: "An API for providing a secure middle layer between Kaltura and other applications"
+  version: "1.0.0"
+
+servers:
+  - url: "/dev"
+
+components:
+  schemas:
+    KalturaAppToken:
+      type: "object"
+      required:
+        - token
+      properties:
+        kaltura_token_id:
+          type: "string"
+        token:
+          type: "string"
+        updated_at:
+          type: "integer"
+        status:
+          type: "integer"
+        session_type:
+          type: "integer"
+        expiry:
+          type: "integer"
+        session_duration:
+          type: "integer"
+        session_user_id:
+          type: "string"
+        session_privileges:
+          type: "string"
+        descripton:
+          type: "string"
+        label:
+          type: "string"
+    CreateAppTokenSession:
+      type: "object"
+      properties:
+        kaltura_token_id:
+          type: "string"
+        token:
+          type: "string"
+
+  parameters:
+    kaltura_token_id:
+      name: "kaltura_token_id"
+      description: "ID of the token"
+      in: path
+      required: true
+      schema:
+        type: "string"
+    note_id:
+      name: "note_id"
+      description: "ID of the note"
+      in: path
+      required: true
+      schema:
+        type: "string"
+    entry_id:
+      name: "entry_id"
+      description: "ID of a Kaltura entry"
+      in: query
+      required: true
+      schema:
+        type: "string"
+    category_id:
+      name: "category_id"
+      description: "ID of a Kaltura category"
+      in: query
+      required: true
+      schema:
+        type: "string"
+    ks:
+      name: "ks"
+      description: "Kaltura session key"
+      in: query
+      schema:
+        type: "string"
+    label:
+      name: "label"
+      description: "Label correlating to a stored app token"
+      in: query
+      schema:
+        type: "string"
+paths:
+  /tokensession:
+    post:
+      operationId: "kaltura_handlers.start_ksession"
+      tags:
+        - App Token Session (Uses Kaltura API)
+      summary: "Create a session using a Kaltura App Token"
+      requestBody:
+        description: "Session info"
+        required: True
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAppTokenSession'
+        x-body-name: "payload"
+      responses:
+        "200":
+          description: "Successfully created app token session"
+  #/caption-asset/{entry_id}/ks/{ks}:
+  /caption-asset:
+    get:
+      operationId: "kaltura_handlers.get_caption_asset"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Retrieve current caption asset for a Kaltura entry"
+      parameters:
+        - $ref: "#/components/parameters/entry_id"
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+      responses:
+        "200":
+          description: "Successfully retrieved caption asset"
+  #/kaltura-entries/{category_id}/ks/{ks}:
+  /kaltura-entries:
+    get:
+      operationId: "kaltura_handlers.get_entries_by_category"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Retrieve all entries for a specific category"
+      parameters:
+        - $ref: "#/components/parameters/category_id"
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+      responses:
+        "200":
+          description: "Successfully retrieved entries"
+  /notes:
+    post:
+      operationId: "notes.create"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Create a note associated with a token"
+      requestBody:
+          description: "Note to create"
+          required: True
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  kaltura_token_id:
+                    type: "string"
+                  content:
+                    type: "string"
+          x-body-name: "note"
+      responses:
+        "201":
+          description: "Successfully created a note"
+  /notes/{note_id}:
+    get:
+      operationId: "notes.read_one"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Read one note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "200":
+          description: "Successfully read one note"
+    put:
+      tags:
+        - App Tokens (Integration Manager Only)
+      operationId: "notes.update"
+      summary: "Update a note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "200":
+          description: "Successfully updated note"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                content:
+                  type: "string"
+        x-body-name: "note"
+    delete:
+      tags:
+        - App Tokens (Integration Manager Only)
+      operationId: "notes.delete"
+      summary: "Delete a note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "204":
+          description: "Successfully deleted note"
