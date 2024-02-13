@@ -1,10 +1,11 @@
-Welcome to the EdTech Platform Integration Bridge Beta project
+Welcome to the EdTech Platform Integration Bridge - Beta Project
 ===================================
 
 The first iteration of the EdTech Platform Integration Bridge serves as a "middleware" application and abstraction tool for working with Kaltura APIs.
 Due to policies and standards in dealing with sensitive data (students, trainees) it is important for schools (Higher Ed, K12) and corporations to track interactions between third party (external, SaaS, cloud-hosted) vendor integrations and internal platforms.
 
 The EdTech Platform Integration Bridge currently performs the following:
+
 * Allows administrators to store and track Kaltura App Tokens. In some cases, many app tokens may need to be created in order to provide proper security.
 * Can create customized API endpoints for third party vendors who want to integrate with Kaltura, abstracting existing APIs into only those that are needed.
 * Logs all interactions.
@@ -13,6 +14,7 @@ The EdTech Platform Integration Bridge currently performs the following:
 * Easy Deployment. Open Source. Host anywhere.
 
 Future development:
+
 * Support for LTI 1.3 / Advantage integrations. One connection, abstracting endpoints from many tools into what is needed for a single third party tool.
 * Kaltura support will become a separate module. Support for major LMSs.
 
