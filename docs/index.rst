@@ -22,6 +22,7 @@ Reasons for this project:
 
 * The demand for adherance to LTI standards by third party companies and solution providers.
 * While the Kaltura video content management platform is a wonderful product (and comes highly recommended), there are some shortfalls when scaled to enterprise levels within the institution:
+
   * Multiple app tokens need to be created and tracked in order to provide the security and restrictions that university admins desire (read-only access to specific categories).
   * Setting entitlements on specific categories manually in KMC isn’t scalable and may not provide the granularity necessary when a third party is using APIs.
   * Setting Privacy Contexts in the KMC would provide access to specific categories that could then be applied to a single app token… but it breaks in production: “Cannot set multiple privacy contexts when Disable Category Limit feature is turned on”.
