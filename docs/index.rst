@@ -32,10 +32,13 @@ Reasons for this project
   * Setting Privacy Contexts in the KMC would provide access to specific categories that could then be applied to a single app token… but it breaks in production: “Cannot set multiple privacy contexts when Disable Category Limit feature is turned on”.
 
 
-:ref:`admin-docs-ref`
+Contents
+========
 
+.. toctree:: 
+
+:ref:`admin-docs-ref`
 :ref:`deployment-docs-ref`
 
-
-
-Note: This product is not affiliated with Kaltura, Inc and utilizes the existing Kaltura vPaaS for development against their current APIs.
+.. note::
+This product is not affiliated with Kaltura, Inc and utilizes the existing Kaltura vPaaS for development against their current APIs.
