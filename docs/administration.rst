@@ -77,7 +77,7 @@ Once the token has been added, it will show in the list on the Manage Tokens pag
 Manage Tokens
 -------------
 
-.. figure:: img/mangagetoken-default.jpg
+.. figure:: img/managetoken-default.jpg
    :alt: Manage Tokens Page
    :align: center
 
@@ -88,12 +88,14 @@ through the Add Token page. The Integration Bridge does not currently maintain a
 system (e.g. Kaltura). The primary functionality of this page, as it stands, is used for keeping tokens organized.
 
 Current functionality:
+
 * View a list of all tokens currently in the database and the system to which they belong.
 * View the description provided when the token was generated.
 * View any notes created by administrators about each token and any labels applied.
 * View token details and expiration notifications.
 
 Future functionality:
+
 * Ability to edit and pull additional info from a source system.
 * Fully delete a token.
 * Add Tokens for more EdTech systems. Currently only Kaltura is supported.
@@ -101,7 +103,7 @@ Future functionality:
 View More Info
 ^^^^^^^^^^^^^^
 
-.. figure:: img/mangagetoken-expanded.jpg
+.. figure:: img/managetoken-expanded.jpg
    :alt: Manage Token Expanded
    :align: center
 
