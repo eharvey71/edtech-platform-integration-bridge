@@ -28,6 +28,7 @@ for accessing the Kaltura APIs. The App Token Id and App Token are required. Ent
    :alt: Add Token Page
    :align: center
 
+
 Labels
 ~~~~~~
 
@@ -38,6 +39,29 @@ app tokens.
 
 See the configuration page documentation for more information about forcing label usage.
 Future use for labels to be introduced:
-  * requiring the use of labels will help to obfuscate tokens completely if used with a special key. This eliminates the need to pass
+
+* requiring the use of labels will help to obfuscate tokens completely if used with a special key. This eliminates the need to pass
   around tokens and ids altogether.
-  * labels will help to provide meaningful information in logs.
+* labels will help to provide meaningful information in logs.
+
+
+Pull Additional Token Info Checkbox
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is optional but will allow an admin to pull more information from Kaltura when adding a token to the integration bridge.
+A requirement for doing this is for the Kaltura admin to generate a Kaltura Session token (KS) and entering it into provided
+text box before submission of the token.
+
+.. image:: img/addtoken-ks.jpg
+   :alt: KS entry field
+   :align: center
+
+If the box is checked and no KS is provided (or if the box isn't selected at all), the token will be added to the management list / database,
+without the following additional information:
+* Assigned Privileges (if any)
+* Expiration Date and Time
+* Session Duration
+* Session User ID (if any)
+* Description (if any) - Can be added by an admin when creating a Kaltura App Token
+
+Once the token has been added, it will show in the list on the Manage Tokens page.
