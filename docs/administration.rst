@@ -124,9 +124,11 @@ Logs Page
 Events are logged on this page. Logs are stored in local UTF-8 format and are downloadable in a single file download.
 
 Future functionality:
+
 * An API endpoint will be provided, tied to log retrieval, for use by internal log aggregation, montioring, and data analysis systems.
 
 Logged Events:
+
 * Endpoint successes and failures.
 * IDs of data retrieved.
 * Sesson Token ID used.
