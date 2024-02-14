@@ -31,6 +31,5 @@ Future development
 * Support for LTI 1.3 / Advantage integrations. One connection, abstracting endpoints from many tools into what is needed for a single third party tool.
 * Kaltura support will become a separate module. Support for major LMSs.
 
-Visit my website:
-.. _edutechdev.com: https://www.edutechdev.com
+Visit my website: `edutechdev.com <https://www.edutechdev.com/>`_
 
