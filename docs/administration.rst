@@ -9,7 +9,7 @@ Authentication
 Once the application has been deployed, an administrator can access the interface at the root of the domain.
 Login with the default credentials to get started.
 
-.. image:: img/loginpage.jpg
+.. figure:: img/loginpage.jpg
    :alt: Login Page
    :align: center
 
@@ -24,11 +24,9 @@ Add Token
 The **Add Token** page is where administrators can add App Tokens that they've generated for third party integrators to use
 for accessing the Kaltura APIs. The App Token Id and App Token are required. Entering a label is optional.
 
-.. image:: img/addtoken1.jpg
+.. figure:: img/addtoken1.jpg
    :alt: Add Token Page
    :align: center
-
-|
 
 Labels
 ^^^^^^
@@ -53,11 +51,9 @@ This is optional but will allow an admin to pull more information from Kaltura w
 A Kaltura admin will need to generate a Kaltura Session token (KS) and populate the provided
 text box before submission of the token.
 
-.. image:: img/addtoken-ks.jpg
+.. figure:: img/addtoken-ks.jpg
    :alt: KS entry field
    :align: center
-
-|
 
 If the box is checked and no KS is provided (or if the box isn't selected at all), the token will be added to the management list / database,
 without the following additional information:
