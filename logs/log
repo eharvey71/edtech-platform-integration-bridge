@@ -4,3 +4,4 @@ begin log
 [02-13-2024 22:08:06] Started Kaltura session for token ID 1_68dcnqj4
 [02-13-2024 22:08:56] Attempted to retrieve entries by category ID 249615213 but was not allowed
 [02-13-2024 22:10:11] Retrieved entries by category ID 249615213
+[02-14-2024 10:53:25] login attempt succeeded for user: admin
