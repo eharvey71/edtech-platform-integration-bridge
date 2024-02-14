@@ -109,3 +109,26 @@ View More Info
 
 Clicking on "More..." within a token's card will expand the details view for a specific token. Any current labels assigned
 to a token can be viewed here in addition to any info populated from the source system when the token was added.
+
+Logs Page
+---------
+
+.. figure:: img/logspage.jpg
+   :alt: Logs Page
+   :align: center
+
+   View Logs Page
+
+Events are logged on this page. Logs are stored in local UTF-8 format and are downloadable in a single file download.
+
+Future functionality:
+* An API endpoint will be provided, tied to log retrieval, for use by internal log aggregation, montioring, and data analysis systems.
+
+Logged Events:
+* Endpoint successes and failures.
+* IDs of data retrieved.
+* Sesson Token ID used.
+* If a new session was created or reused for subsequent API methods (GET, POST, etc)
+* Interface Bridge Logins -- user id and role ('developer' coming soon).
+* Locked endpoint usage -- logs user namd and success / failure.
+* Kaltura-only: Category blocks: "attempted by not allowed".
