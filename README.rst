@@ -15,8 +15,8 @@ The integration bridge currently performs the following
 * Leverages a swagger UI for rapid endpoint development and testing on the fly.
 * Easy Deployment. Open Source. Host anywhere.
 
-Reasons for this project
-------------------------
+Purpose
+-------
 
 * The demand for adherance to LTI standards by third party companies and solution providers.
 * While the Kaltura video content management platform is a wonderful product (and comes highly recommended), there are some shortfalls when scaled to enterprise levels within the institution:
@@ -31,5 +31,6 @@ Future development
 * Support for LTI 1.3 / Advantage integrations. One connection, abstracting endpoints from many tools into what is needed for a single third party tool.
 * Kaltura support will become a separate module. Support for major LMSs.
 
-Visit my website: (https://www.edutechdev.com)[https://www.edutechdev.com]
+Visit my website:
+.. _edutechdev.com: https://www.edutechdev.com
 
