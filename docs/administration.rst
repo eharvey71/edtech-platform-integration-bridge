@@ -30,26 +30,26 @@ for accessing the Kaltura APIs. The App Token Id and App Token are required. Ent
 
 
 Labels
-~~~~~~
+^^^^^^
 
 A label can be used as an additional identifier for an app token and makes storage of the app token more useful.
 Currently, labels can be forced for use on the configuration page of the integration bridge.
-If labels aren't being forced, they should still be used an an additional identifier for admins to use when tracking many
+If labels aren't being forced, they should still be used as an additional identifier for admins to use when tracking many
 app tokens.
 
 See the configuration page documentation for more information about forcing label usage.
 Future use for labels to be introduced:
 
-* requiring the use of labels will help to obfuscate tokens completely if used with a special key. This eliminates the need to pass
+* Requiring the use of labels will help to obfuscate tokens completely if used with a special key. This eliminates the need to pass
   around tokens and ids altogether.
-* labels will help to provide meaningful information in logs.
+* Labels will help to provide meaningful information in logs.
 
 
 Pull Additional Token Info Checkbox
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This is optional but will allow an admin to pull more information from Kaltura when adding a token to the integration bridge.
-A requirement for doing this is for the Kaltura admin to generate a Kaltura Session token (KS) and entering it into provided
+A Kaltura admin will need to generate a Kaltura Session token (KS) and populate the provided
 text box before submission of the token.
 
 .. image:: img/addtoken-ks.jpg
@@ -58,6 +58,7 @@ text box before submission of the token.
 
 If the box is checked and no KS is provided (or if the box isn't selected at all), the token will be added to the management list / database,
 without the following additional information:
+
 * Assigned Privileges (if any)
 * Expiration Date and Time
 * Session Duration
