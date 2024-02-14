@@ -3,8 +3,10 @@
 Administration
 ==============
 
+Front-end administration docs
+
 Authentication
---------------
+==============
 
 Once the application has been deployed, an administrator can access the interface at the root of the domain.
 Login with the default credentials to get started.
@@ -19,7 +21,7 @@ Clicking on "Remember Me" will place a tamper-proof cookie in the user's local b
 Passwords are hashed and salted when stored in the database.
 
 Add Token
----------
+=========
 
 The **Add Token** page is where administrators can add App Tokens that they've generated for third party integrators to use
 for accessing the Kaltura APIs. The App Token Id and App Token are required. Entering a label is optional.
@@ -29,7 +31,7 @@ for accessing the Kaltura APIs. The App Token Id and App Token are required. Ent
    :align: center
 
 Labels
-^^^^^^
+------
 
 A label can be used as an additional identifier for an app token and makes storage of the app token more useful.
 Currently, labels can be forced for use on the configuration page of the integration bridge.
@@ -45,7 +47,7 @@ Future use for labels to be introduced:
 
 
 Pull Additional Token Info Checkbox
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 This is optional but will allow an admin to pull more information from Kaltura when adding a token to the integration bridge.
 A Kaltura admin will need to generate a Kaltura Session token (KS) and populate the provided
