@@ -28,7 +28,7 @@ for accessing the Kaltura APIs. The App Token Id and App Token are required. Ent
    :alt: Add Token Page
    :align: center
 
-::
+|
 
 Labels
 ^^^^^^
@@ -56,7 +56,8 @@ text box before submission of the token.
 .. image:: img/addtoken-ks.jpg
    :alt: KS entry field
    :align: center
-::
+
+|
 
 If the box is checked and no KS is provided (or if the box isn't selected at all), the token will be added to the management list / database,
 without the following additional information:
