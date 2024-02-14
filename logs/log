@@ -5,3 +5,8 @@ begin log
 [02-13-2024 22:08:56] Attempted to retrieve entries by category ID 249615213 but was not allowed
 [02-13-2024 22:10:11] Retrieved entries by category ID 249615213
 [02-14-2024 10:53:25] login attempt succeeded for user: admin
+[02-14-2024 13:42:34] login attempt succeeded for user: admin
+[02-14-2024 14:04:48] Started Kaltura session for token ID 1_68dcnqj4
+[02-14-2024 14:05:47] Attempted to retrieve entries by category ID 249615213 but was not allowed
+[02-14-2024 14:06:35] Retrieved entries by category ID 249615213
+[02-14-2024 14:10:55] Attempted to retrieve entries by category ID 249615213 but was not allowed

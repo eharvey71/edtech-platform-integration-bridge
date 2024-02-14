@@ -19,7 +19,7 @@ SAMPLE_TOKENS = [
         "hashType": "SHA256",
         "objectType": "KalturaAppToken",
         "notes": [
-            ("Using Privacy Context for specific Canvas courses", "2022-03-05 22:18:10"),
+            ("Applied a Privacy Context for specific Canvas courses", "2022-03-05 22:18:10"),
         ],
     },
     {

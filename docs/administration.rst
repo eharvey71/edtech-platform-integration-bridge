@@ -73,3 +73,39 @@ without the following additional information:
 * Description (if any) - Can be added by an admin when creating a Kaltura App Token
 
 Once the token has been added, it will show in the list on the Manage Tokens page.
+
+Manage Tokens
+-------------
+
+.. figure:: img/mangagetoken-default.jpg
+   :alt: Manage Tokens Page
+   :align: center
+
+   Manage Tokens Page
+
+The Manage Tokens page contains a list of tokens that have been submitted to the database by an administrator,
+through the Add Token page. The Integration Bridge does not currently maintain an active connection to any given
+system (e.g. Kaltura). The primary functionality of this page, as it stands, is used for keeping tokens organized.
+
+Current functionality:
+* View a list of all tokens currently in the database and the system to which they belong.
+* View the description provided when the token was generated.
+* View any notes created by administrators about each token and any labels applied.
+* View token details and expiration notifications.
+
+Future functionality:
+* Ability to edit and pull additional info from a source system.
+* Fully delete a token.
+* Add Tokens for more EdTech systems. Currently only Kaltura is supported.
+
+View More Info
+^^^^^^^^^^^^^^
+
+.. figure:: img/mangagetoken-expanded.jpg
+   :alt: Manage Token Expanded
+   :align: center
+
+   Manage Token Expanded View
+
+Clicking on "More..." within a token's card will expand the details view for a specific token. Any current labels assigned
+to a token can be viewed here in addition to any info populated from the source system when the token was added.
