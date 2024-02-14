@@ -28,7 +28,7 @@ for accessing the Kaltura APIs. The App Token Id and App Token are required. Ent
    :alt: Add Token Page
    :align: center
 
-
+^^^^^^
 Labels
 ^^^^^^
 
