@@ -15,7 +15,7 @@ Login with the default credentials to get started.
    :alt: Login Page
    :align: center
 
-"
+""""
 The application currently uses basic authentication but can be adapted for use with SSO, OAuth2, or LDAP.
 Clicking on "Remember Me" will place a tamper-proof cookie in the user's local browser storage.
 
@@ -31,7 +31,7 @@ for accessing the Kaltura APIs. The App Token Id and App Token are required. Ent
    :alt: Add Token Page
    :align: center
 
-"
+""""
 Labels
 ^^^^^^
 
@@ -59,7 +59,7 @@ text box before submission of the token.
    :alt: KS entry field
    :align: center
 
-"
+""""
 If the box is checked and no KS is provided (or if the box isn't selected at all), the token will be added to the management list / database,
 without the following additional information:
 
