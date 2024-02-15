@@ -140,23 +140,47 @@ Logged Events:
 Configuration Page
 ------------------
 
+Kaltura Category Restrictions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. figure:: img/config-kaltura.jpg
    :alt: Kaltura Configuration Options
    :align: center
 
    Configuration Page - Kaltura Restrictions
 
-Force Category Filtering can include a restrictive comma-delimited listing of categories (alphanumeric) to be allowed
+**Force Category Filtering** can include a restrictive comma-delimited listing of categories (alphanumeric) to be allowed
 when external applications (vendors, institutional, etc) are requesting data about entries, users, captions, etc - leveraging
 Kaltura APIs. All requests to APIs that state a category not listed here will be rejected.
 
 Leaving this field blank will not apply additional restrictions on categories, effectively disabling this option.
 
-Forcing labels will require that all API endpoint requests include the token label as a query parameter, 
+**Force labels** will require that all API endpoint requests include the token label as a query parameter, 
 effectively removing the requirement for session creation, or the need for a third party to have knowlege of the app token. 
-Future improvements will include an optional key, creating true obfuscation of added tokens. 
+Future improvements will include an optional key, creating true obfuscation of added tokens.
 
-IMPORTANT: This is to be used with care in its current iteration, when creating and sharing labels.
+IMPORTANT: Force labels is to be used with care in its current iteration.
+
+Configure App Token Session Creation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: img/config-sessions.jpg
+   :alt: Kaltura Configuration Options
+   :align: center
+
+   Configuration Page - Kaltura Restrictions
+
+**Partner ID** is required for the creation of temporary "widget" sessions during the creation of app token sessions.
+
+**Session Expiration** can be used to override the default session on new sessions created by developer app tokens.
+
+Select to temporarily store session tokens created when calling session creation endpoints. 
+Currently, this depends on selecting force labels (above). 
+When selected, an app token KS will be stored in the database for subsequent use and efficiency. 
+With each API request, an expiration check is performed. A new KS will then be created and the expired KS will be removed.
+
+UI Customization
+^^^^^^^^^^^^^^^^
 
 .. figure:: img/config-ui-custom.jpg
    :alt: User Interface Customizations
