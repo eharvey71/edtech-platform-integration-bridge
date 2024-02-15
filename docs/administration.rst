@@ -159,7 +159,8 @@ Leaving this field blank will not apply additional restrictions on categories, e
 effectively removing the requirement for session creation, or the need for a third party to have knowlege of the app token. 
 Future improvements will include an optional key, creating true obfuscation of added tokens.
 
-IMPORTANT: Force labels is to be used with care in its current iteration.
+.. important::
+Force labels is to be used with care in its current iteration because of the ability to bypass session creation processes
 
 Configure App Token Session Creation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
