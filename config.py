@@ -2,17 +2,27 @@
 
 import pathlib
 from datetime import datetime
-from connexion import FlaskApp
+from connexion import FlaskApp #, json_schema
 from connexion.options import SwaggerUIOptions
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
-#from models import UICustomizations
+from custom_file_handler import CustomFileHandler
 
 basedir = pathlib.Path(__file__).parent.resolve()
+
+# custom_file_handler = CustomFileHandler(basedir / "apispecs")
+# # Update Connexion's JSON schema handlers with your custom handler
+# json_schema.handlers.update(
+#     {
+#         "file": custom_file_handler,
+#         "": custom_file_handler,
+#     }
+# )
+
 swagoptions = SwaggerUIOptions(swagger_ui = True, swagger_ui_template_dir = basedir / 'swagger-ui')
-connex_app = FlaskApp(__name__, specification_dir=basedir)
+connex_app = FlaskApp(__name__, specification_dir=basedir / "apispecs")
 
 app = connex_app.app
 
