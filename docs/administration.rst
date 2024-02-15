@@ -136,3 +136,33 @@ Logged Events:
 * Interface Bridge Logins -- user id and role ('developer' coming soon).
 * Locked endpoint usage -- logs user namd and success / failure.
 * Kaltura-only: Category blocks: "attempted by not allowed".
+
+Configuration Page
+------------------
+
+.. figure:: img/config-kaltura.jpg
+   :alt: Kaltura Configuration Options
+   :align: center
+
+   Configuration Page - Kaltura Restrictions
+
+Force Category Filtering can include a restrictive comma-delimited listing of categories (alphanumeric) to be allowed
+when external applications (vendors, institutional, etc) are requesting data about entries, users, captions, etc - leveraging
+Kaltura APIs. All requests to APIs that state a category not listed here will be rejected.
+
+Leaving this field blank will not apply additional restrictions on categories, effectively disabling this option.
+
+Forcing labels will require that all API endpoint requests include the token label as a query parameter, 
+effectively removing the requirement for session creation, or the need for a third party to have knowlege of the app token. 
+Future improvements will include an optional key, creating true obfuscation of added tokens. 
+
+IMPORTANT: This is to be used with care in its current iteration, when creating and sharing labels.
+
+.. figure:: img/config-ui-custom.jpg
+   :alt: User Interface Customizations
+   :align: center
+
+   Configuration Page - User Interface Customization
+
+Currently, an option exists to rename the title of the Platform Integration Bridge to something that suits
+your use case and environment.

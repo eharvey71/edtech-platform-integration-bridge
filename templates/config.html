@@ -15,7 +15,14 @@
         name="force-cats"
         value={{ access_restrictions.allowed_categories|stripwhitespace }}
       />
-      <br />
+    </div>
+    <div class="card border-danger mb-3 mt-3" style="max-width: 40rem">
+      <div class="card-body">
+        <p class="card-text">
+          ⬆️ Add categories here that are to be allowed. All others will be rejected. Leaving this field
+          blank will not apply any additional restrictions.
+        </p>
+      </div>
     </div>
     <label style="margin-top: 8px" for="force-labels"
       >Force Label Usage</label
@@ -29,7 +36,17 @@
         name="force-labels"
         {% if access_restrictions.force_labels %} checked="" {% endif %}
       />
-    </div><br />
+    </div>
+    <div class="card border-danger mb-3 mt-3" style="max-width: 40rem">
+      <div class="card-body">
+        <p class="card-text">
+          ⬆️ Forcing labels will require that all API endpoint requests include the token label as a query parameter,
+          effectively removing the requirement for session creation, or the need for a third party to have knowlege of
+          the app token. Future improvements will include an optional key, creating true obfuscation of added tokens.
+          IMPORTANT: This is to be used with care in its current iteration, when creating and sharing labels.
+        </p>
+      </div>
+    </div>
   </form>
   <button form="restrictions" type="submit" value="submit" class="btn btn-info mb-1">
     Update
@@ -69,7 +86,17 @@
       name="use-local-storage"
       {% if apptoken_session_defaults.use_local_storage %} checked="" {% endif %}
       />
-    </div><br />
+    </div>
+    <div class="card border-danger mb-3 mt-3" style="max-width: 40rem">
+      <div class="card-body">
+        <p class="card-text">
+          ⬆️ Select to temporarily store session tokens created when calling session creation endpoints.
+          Currently, this depends on selecting force labels (above). When selected, an app token
+          KS will be stored in the database for subsequent use and efficiency. With each API request,
+          an expiration check is performed. A new KS will then be created and the expired KS will be removed.
+        </p>
+      </div>
+    </div>
   </form>
   <button form="sessions" value="submit" type="submit" class="btn btn-info" data-action="update-token-session-config">
     Update
