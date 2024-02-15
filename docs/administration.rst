@@ -160,7 +160,7 @@ effectively removing the requirement for session creation, or the need for a thi
 Future improvements will include an optional key, creating true obfuscation of added tokens.
 
 .. important::
-Force labels is to be used with care in its current iteration because of the ability to bypass session creation processes
+   Force labels is to be used with care in its current iteration because of the ability to bypass session creation processes
 
 Configure App Token Session Creation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
