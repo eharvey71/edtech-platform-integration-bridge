@@ -1,6 +1,6 @@
 # config.py
 
-import pathlib
+import pathlib, os
 from datetime import datetime
 from connexion import FlaskApp #, json_schema
 from connexion.options import SwaggerUIOptions
@@ -30,7 +30,7 @@ app.config['DEBUG'] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{basedir / 'database/epib.db'}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'darkly'
-app.config['SECRET_KEY'] = ''
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_default_secret_key')
 app.config['MESSAGE_FLASHING_OPTIONS'] = {'duration': 5}
 
 @app.template_filter('datetimeformat')
