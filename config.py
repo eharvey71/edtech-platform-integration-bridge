@@ -46,6 +46,7 @@ def datetime_format(seconds):
 @app.template_filter('stripwhitespace')
 def strip_whitespace(s):
     sclean = s.replace(" ", "")
+    print(sclean)
     return sclean
 
 db = SQLAlchemy(app)

@@ -30,12 +30,16 @@ def get_entries_by_category(category_id, ks='', label=''):
 
     # Check against allowed categories list in database
     access_restrictions = AccessRestrictions.query.get(1)
-    allowed_categories = access_restrictions.allowed_categories   
-    allowed_categories_list = [int(x) for x in allowed_categories.split(',')]
+    allowed_categories = access_restrictions.allowed_categories
+    
+    if allowed_categories == '':
+        isAllowed = True
+    else:
+        allowed_categories_list = [int(x) for x in allowed_categories.split(',')]
 
-    for category in allowed_categories_list:
-        if category == int(category_id):
-            isAllowed = True
+        for category in allowed_categories_list:
+            if category == int(category_id):
+                isAllowed = True
 
     if isAllowed:
         log_info = "Get entries from category: " + category_id

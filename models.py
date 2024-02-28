@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
 class AccessRestrictions(db.Model):
     __tablename__ = "access_restrictions"
     id = db.Column(db.Integer, primary_key=True)
-    allowed_categories = db.Column(db.String, nullable=False, unique=True)
+    allowed_categories = db.Column(db.String, nullable=True, unique=True)
     force_labels = db.Column(db.Boolean, nullable=False)
 
 class AppTokenSessionDefaults(db.Model):

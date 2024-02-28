@@ -14,7 +14,7 @@
         id="force-cats"
         name="force-cats"
         value={{ access_restrictions.allowed_categories|stripwhitespace }}
-      />
+      >
     </div>
     <div class="card border-danger mb-3 mt-3" style="max-width: 40rem">
       <div class="card-body">
@@ -35,7 +35,7 @@
         id="force-labels"
         name="force-labels"
         {% if access_restrictions.force_labels %} checked="" {% endif %}
-      />
+      >
     </div>
     <div class="card border-danger mb-3 mt-3" style="max-width: 40rem">
       <div class="card-body">
@@ -64,7 +64,7 @@
         id="partner-id"
         name="partner-id"
         value={{ apptoken_session_defaults.partner_id }}
-      /><br />
+      ><br />
     </div>
     <label for="session-expiry">Session Expiration (in seconds)</label>
     <div class="col-sm-2">
@@ -74,7 +74,7 @@
         id="session-expiry"
         name="session-expiry"
         value={{ apptoken_session_defaults.session_expiry }}
-      /><br />
+      ><br />
     </div>
     <label for="store-ks-checked">Allow for local storage of App Token KS</label>
     <div class="col-sm-2">
@@ -85,7 +85,7 @@
       id="use-local-storage"
       name="use-local-storage"
       {% if apptoken_session_defaults.use_local_storage %} checked="" {% endif %}
-      />
+      >
     </div>
     <div class="card border-danger mb-3 mt-3" style="max-width: 40rem">
       <div class="card-body">
@@ -114,7 +114,7 @@
         id="integrator-title"
         name="integrator-title"
         value="{{ ui_customizations.integrator_title}}"
-      /><br />
+      ><br />
     </div>
   </form>
   <button form="ui" value="submit" type="submit" class="btn btn-info" data-action="update-integrator-config">
