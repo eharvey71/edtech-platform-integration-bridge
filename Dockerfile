@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
 
 # Make port 80 available to the world outside this container
-EXPOSE 8080
+EXPOSE 80
 
 # Use Uvicorn to run the application, replace `app:app` with your application and variable
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
