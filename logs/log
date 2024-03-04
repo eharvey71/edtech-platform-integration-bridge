@@ -18,3 +18,31 @@ begin log
 [02-28-2024 12:41:15] Retrieved entries by category ID 249615213
 [02-28-2024 12:41:40] Retrieved entries by category ID 249615213
 [02-28-2024 12:41:55] Attempted to retrieve entries by category ID 249615213 but was not allowed
+[03-01-2024 09:14:06] login attempt succeeded for user: admin
+[03-01-2024 09:17:41] Started Kaltura session for token ID 1_68dcnqj4
+[03-01-2024 09:25:10] Started Kaltura session for token ID 1_68dcnqj4
+[03-01-2024 10:12:57] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 10:17:25] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 10:17:34] Retrieved entries by category ID 249615213
+[03-01-2024 10:18:37] Caption transcript retrieved for entry ID: 1_898g9p82
+[03-01-2024 10:28:06] Caption transcript retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:00:05] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:04:50] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:08:12] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:10:01] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:10:49] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:12:58] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:18:09] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:19:14] Caption list retrieved for entry ID: 1_898g9p82
+[03-01-2024 11:19:15] Caption transcript retrieved for entry ID: 1_898g9p82
+[03-01-2024 12:02:39] Swagger UI Auth succeeded for user: admin
+[03-01-2024 12:02:58] Swagger UI Auth succeeded for user: admin
+[03-01-2024 12:40:21] Swagger UI Auth succeeded for user: admin
+[03-01-2024 12:49:58] Swagger UI Auth succeeded for user: admin
+[03-01-2024 12:51:56] Swagger UI Auth succeeded for user: admin
+[03-01-2024 12:55:10] Swagger UI Auth succeeded for user: admin
+[03-01-2024 12:55:28] Swagger UI Auth succeeded for user: admin
+[03-01-2024 14:22:25] Swagger UI Auth succeeded for user: admin
+[03-01-2024 15:53:44] Swagger UI Auth attempt failed for user: admin
+[03-01-2024 15:54:58] Swagger UI Auth succeeded for user: admin
+[03-01-2024 16:12:44] Swagger UI Auth succeeded for user: admin

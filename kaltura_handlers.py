@@ -9,18 +9,34 @@ from models import AccessRestrictions, AppTokenSessionDefaults, KalturaAppToken
 kaltura_header = {
     "Content-Type": "application/x-www-form-urlencoded",
 }
-kaltura_service_url = "https://www.kaltura.com/api_v3/service"
+kaltura_service_url = 'https://www.kaltura.com/api_v3/service'
 
-def get_caption_asset(entry_id, ks='', label=''):
-
-    log_info = "Get caption aseet from entry: " + entry_id
+def get_transcript(entry_id, ks='', label=''):
+    
+    # Kaltura only returns only XML responses for entry_id/transcript requests
+    # JSON is returned only when using an asset id.
+    cap_asset_response = get_caption_list(entry_id, ks, label)
+    asset_id = cap_asset_response["objects"][0]["id"]
+    
+    log_info = 'Get caption transcript for entry id: ' + entry_id
     ks = resolveLabels(label, ks, log_info)
-
+    
+    data = 'ks=' + ks + '&format=1&captionAssetId=' + asset_id
+    response = requests.post(kaltura_service_url + '/caption_captionasset/action/serveAsJson', headers=kaltura_header, data=data)
+    json_response = json.loads(response.text)
+    logger.log('Caption transcript retrieved for entry ID: ' + str(entry_id))
+    
+    return json_response
+    
+def get_caption_list(entry_id, ks='', label=''):
+    
+    log_info = 'Get caption list for entry: ' + entry_id
+    ks = resolveLabels(label, ks, log_info)
     data = 'ks=' +  ks + '&format=1&filter[entryIdEqual]=' + entry_id
     response = requests.post(kaltura_service_url + '/caption_captionasset/action/list', headers=kaltura_header, data=data)
     json_response = json.loads(response.text)
-    logger.log("Caption asset retrieved for entry ID: " + str(entry_id))
-    
+    logger.log('Caption list retrieved for entry ID: ' + str(entry_id))
+
     return json_response
    
 def get_entries_by_category(category_id, ks='', label=''):
@@ -42,7 +58,7 @@ def get_entries_by_category(category_id, ks='', label=''):
                 isAllowed = True
 
     if isAllowed:
-        log_info = "Get entries from category: " + category_id
+        log_info = 'Get entries from category: ' + category_id
         ks = resolveLabels(label, ks, log_info)
 
         data = (
@@ -57,17 +73,16 @@ def get_entries_by_category(category_id, ks='', label=''):
         )
 
         response = requests.post(
-            kaltura_service_url + "/media/action/list", headers=kaltura_header, data=data
+            kaltura_service_url + '/media/action/list', headers=kaltura_header, data=data
         )
         json_response = json.loads(response.text)
-        logger.log("Retrieved entries by category ID " + str(category_id))
+        logger.log('Retrieved entries by category ID ' + str(category_id))
 
     else:
         json_response = empty_response
-        logger.log("Attempted to retrieve entries by category ID " + str(category_id) + " but was not allowed")
+        logger.log('Attempted to retrieve entries by category ID ' + str(category_id) + ' but was not allowed')
 
     return json_response
-
 
 def start_ksession(payload):
     # - pull expiry and partner id from database (stored in configuration tab)
@@ -95,7 +110,7 @@ def start_ksession(payload):
 
     # For session type to 0. Kaltura admin can override at the time of token creation.
     session_type = 0
-    session_privileges = ""
+    session_privileges = ''
 
     # Create an unpriviliged KS for use in generating a new app token session
     expiry_uks = 86400
@@ -112,7 +127,7 @@ def start_ksession(payload):
         token_id, hashString, "", session_type, expiry, session_privileges
     )
     ksession = result.ks
-    logger.log("Started Kaltura session for token ID " + token_id)
+    logger.log('Started Kaltura session for token ID ' + token_id)
     return ksession
 
 # def get_entry(entry_id, ks, label=""):
@@ -147,7 +162,7 @@ def resolveLabels(label, ks, log_info: str):
     # Deny if label is empty or not matched, but forced
     if force_labels:
         if label == '' or matched_token_id == '':
-            logger.log("Action denied: " + log_info + ". Force labels is on.")
+            logger.log('Action denied: ' + log_info + '. Force labels is on.')
             Denied = True
 
     # If not denied and if we have a label
@@ -159,7 +174,7 @@ def resolveLabels(label, ks, log_info: str):
                 logger.log('Label used and labels aren\'t being forced: ' + log_info)
             
             # Generate a KS for the associated token and id
-            logger.log("Generating a KS with token id: " + matched_token_id)
+            logger.log('Generating a KS with token id: ' + matched_token_id)
             payload = {
                 'kaltura_token_id': matched_token_id,
                 'token': matched_token

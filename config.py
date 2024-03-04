@@ -14,6 +14,7 @@ basedir = pathlib.Path(__file__).parent.resolve()
 
 # custom_file_handler = CustomFileHandler(basedir / "apispecs")
 # # Update Connexion's JSON schema handlers with your custom handler
+# # For when refs aren't working on Windows test machines.
 # json_schema.handlers.update(
 #     {
 #         "file": custom_file_handler,
