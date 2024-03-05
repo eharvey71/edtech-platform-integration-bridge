@@ -13,3 +13,12 @@ def swag_auth(username, password):
         return {"sub": username}
     # optional: raise exception for custom error response
     return None
+
+
+####
+# To Do:
+####
+# Implement API Key Auth in swagger/openapi as a second option
+# for accessing internal APIs.
+# Store hashed in DB and allow to be changed in the Integration Bridge UI.
+####

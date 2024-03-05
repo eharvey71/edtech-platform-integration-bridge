@@ -29,8 +29,8 @@ post:
   responses:
     "201":
       description: "Successfully added token"
-  security:
-    - basic: []
+  #security:
+  #  - basic: []
 put:
   operationId: "tokens.update_existing"
   tags:
@@ -62,5 +62,5 @@ put:
   responses:
     "200":
       description: "Successfully updated token"
-  security:
-    - basic: []
+  #security:
+  #  - basic: []

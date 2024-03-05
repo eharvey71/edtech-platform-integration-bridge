@@ -16,6 +16,7 @@ def get_transcript(entry_id, ks='', label=''):
     # Kaltura only returns only XML responses for entry_id/transcript requests
     # JSON is returned only when using an asset id.
     cap_asset_response = get_caption_list(entry_id, ks, label)
+    print(cap_asset_response)
     asset_id = cap_asset_response["objects"][0]["id"]
     
     log_info = 'Get caption transcript for entry id: ' + entry_id
@@ -85,6 +86,11 @@ def get_entries_by_category(category_id, ks='', label=''):
     return json_response
 
 def start_ksession(payload):
+    
+    # Check if the token exists in the local database
+    if not check_token(payload["kaltura_token_id"]):
+        return "invalid app token used"
+    
     # - pull expiry and partner id from database (stored in configuration tab)
     appTokenSessionDefaults = AppTokenSessionDefaults.query.get(1)
     partner_id = appTokenSessionDefaults.partner_id
@@ -186,3 +192,14 @@ def resolveLabels(label, ks, log_info: str):
         resolved_ks = ks
         
     return resolved_ks
+
+def check_token(token_id):
+    
+    good_token = False
+    all_tokens = KalturaAppToken.query.all()
+    for token in all_tokens:
+        if token.kaltura_token_id == token_id:
+            good_token = True
+            break
+    
+    return good_token

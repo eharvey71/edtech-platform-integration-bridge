@@ -12,5 +12,5 @@ get:
         application/json:
           schema:
             $ref: '#/components/schemas/KalturaAppToken'
-  security:
-    - basic: []
+  #security:
+  #  - basic: []
