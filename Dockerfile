@@ -14,6 +14,9 @@ RUN pip install --no-cache-dir -r requirements-prod.txt
 # Generate a random secret key and store it in an environment variable
 RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
 
+# Build the starter sample database
+RUN python build_database.py
+
 # Dev - Make port 80 available to the world outside this container
 # EXPOSE 80
 
