@@ -133,7 +133,7 @@ def start_ksession(payload):
         token_id, hashString, "", session_type, expiry, session_privileges
     )
     ksession = result.ks
-    logger.log('Started Kaltura session for token ID ' + token_id)
+    logger.log('Kaltura session (Apptoken KS created) using token ID ' + token_id)
     return ksession
 
 # def get_entry(entry_id, ks, label=""):

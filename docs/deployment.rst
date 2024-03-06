@@ -75,6 +75,7 @@ for configuring your serverless instance and setting up your monitoring dashboar
 .. _Google Cloud CLI: https://cloud.google.com/sdk/docs/install
 
 2. Clone the repo from: https://github.com/eharvey71/edtech-platform-integration-bridge
+
    
 3. From the command line, change to the root of the cloned repo. Edit the Dockerfile for "production"
 
