@@ -71,7 +71,6 @@ This is a simplified version to help get you started. Please refer to Google's d
 for configuring your serverless instance and setting up your monitoring dashboard.
 
 1. Install the `Google Cloud CLI`_ for your OS.
-
 .. _Google Cloud CLI: https://cloud.google.com/sdk/docs/install
 
 2. Clone the repo from: https://github.com/eharvey71/edtech-platform-integration-bridge
@@ -103,23 +102,27 @@ for configuring your serverless instance and setting up your monitoring dashboar
 
 4. From your current cloned project directory, you may need to initialize and get your project id before completing the next steps
 
-.. code-block:: 
+.. code-block::
+
     gcloud init
     gcloud config get-value project
 
 5. Set your region. This example assumes us-east-5
 
 .. codeblock::
+
     gcloud config set run/region us-east5
 
 6. Build the new container image using the gcloud CLI and record the resulting container URL for the next step
 
 .. codeblock::
+
     gcloud builds submit --tag gcr.io/{YOUR-PROJECT-ID}/integration-bridge 
 
 7. Launch the new containerized deployment from the glcoud container registry
 
 .. codeblock::
+    
     gcloud run deploy integration-bridge --image {CONTAINER-URL} --platform managed
 
 Step-by-Step Full Deployment
