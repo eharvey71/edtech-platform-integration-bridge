@@ -27,32 +27,23 @@ export function sendForm(form, action, endpoint, callback) {
 }
 
 export function updateData(data, endpoint, callback) {
+  const currentProtocol = window.location.protocol; // 'http:' or 'https:'
+  const baseUrl = `${currentProtocol}//${window.location.host}`;
+  const fullUrl = `${baseUrl}${endpoint}`;
+  
+  console.log("Full URL", fullUrl);
+
   const dataJSON = JSON.stringify(data);
-
-  function sendRequest(url) {
-    const request = new XMLHttpRequest();
-    request.onreadystatechange = () => {
-      if (request.readyState === 4) {
-        //callback(request.response);
-        console.log("updateData readystate and response", request.readyState, request.response);
-      }
-    };
-    request.onerror = () => {
-      console.error("Request failed. Retrying with HTTP if HTTPS was used.");
-      if (url.startsWith("https://")) {
-        sendRequest(url.replace("https://", "http://"));
-      }
-    };
-    request.open("PUT", endpoint);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(dataJSON);
-  }
-
-  /* This will need to be determined from a Flask env open or endpoint */
-  /* Until then, make sure that the HTTP fallback only happens in dev */
-  const isDevelopment = false;
-  const protocol = isDevelopment ? "http://" : "https://";
-  const secureEndpoint = endpoint.replace(/^https?:\/\//i, protocol);
- 
-  sendRequest(secureEndpoint);
+  
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = () => {
+    if (request.readyState === 4) {
+      //callback(request.response);
+      console.log("updateData readystate and response", request.readyState, request.response);
+    }
+  };
+  
+  request.open("PUT", fullUrl);
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(dataJSON);
 }
