@@ -324,4 +324,9 @@ pyrightconfig.json
 .history
 .ionide
 
+# Ignore certain Integration Bridge objects within github
+.build_prod_db.py
+logs/
+database/
+
 # End of https://www.toptal.com/developers/gitignore/api/python,node,visualstudiocode

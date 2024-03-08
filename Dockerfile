@@ -15,7 +15,9 @@ RUN pip install --no-cache-dir -r requirements-prod.txt
 RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
 
 # Build the starter sample database
-RUN python build_database.py
+# RUN python build_database.py
+# Build a production database - Note that SQLite will not persist within a vanilla Google Cloud Run configuration
+RUN python build_prod_db.py
 
 # Dev - Make port 80 available to the world outside this container
 # EXPOSE 80

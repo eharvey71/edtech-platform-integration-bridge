@@ -14,6 +14,13 @@ def swag_auth(username, password):
     # optional: raise exception for custom error response
     return None
 
+def get_user_credentials(username):
+    with config.connex_app.app.app_context():
+        user = User.query.filter_by(username=username).first()
+    if user:
+        return user.username, user.password
+    else:
+        return None, None
 
 ####
 # To Do:

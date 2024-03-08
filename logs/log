@@ -56,3 +56,16 @@ begin log
 [03-05-2024 11:52:50] Caption transcript retrieved for entry ID: 1_1olmn3oe
 [03-05-2024 12:48:20] login attempt succeeded for user: admin
 [03-05-2024 12:50:08] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:21:00] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:22:43] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:23:35] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:23:39] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:23:43] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:40:10] login attempt succeeded for user: admin
+[03-07-2024 21:41:45] login attempt succeeded for user: admin
+[03-07-2024 21:44:49] Swagger UI Auth attempt failed for user: admin
+[03-07-2024 21:46:45] Swagger UI Auth attempt failed for user: admin
+[03-08-2024 10:57:08] login attempt succeeded for user: testadmin
+[03-08-2024 11:08:39] login attempt failed for user: admin
+[03-08-2024 11:08:49] login attempt succeeded for user: testadmin
+[03-08-2024 11:10:16] login attempt succeeded for user: admin

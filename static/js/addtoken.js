@@ -107,7 +107,7 @@ class tokenAddExistingForm {
       // post an update to the local API
       updateData(
         data,
-        "/api/tokens/",
+        "/api/tokens",
         console.log("update token confirm:", data)
       );
     }

@@ -7,58 +7,23 @@ from models import Note, KalturaAppToken, User, AccessRestrictions, \
 
 SAMPLE_TOKENS = [
     {
-        "kaltura_token_id": "1_06ukdpod",
-        "token": "743659feab72a7b9393bedc0sfcbf156",
-        "partnerId": 12312312,
-        "createdAt": 1688050262,
-        "updatedAt": 1688050262,
+        "kaltura_token_id": "1_68dcnqj4",
+        "token": "d08a1e56669a1708fac4f70054233236",
+        "partner_id": 4526213,
+        "createdAt": 1702924341,
+        "updatedAt": 1702924341,
         "status": 2,
-        "expiry": 1767157200,
+        "expiry": 1735603200,
+        "sessionType": 2,
         "sessionDuration": 86400,
-        "sessionPrivileges": "privacycontext:lceducation",
         "hashType": "SHA256",
+        "description": "Testing No Restrictons",
         "objectType": "KalturaAppToken",
+        "label": "UnrestrictedToken1",
         "notes": [
-            ("Applied a Privacy Context for specific Canvas courses", "2022-03-05 22:18:10"),
-        ],
-    },
-    {
-        "kaltura_token_id": "1_38xyqzs6",
-        "token": "f047ddf1f144514ec0db9a587a312d8c",
-        "partnerId": 4526213,
-        "createdAt": 1690220095,
-        "updatedAt": 1690220095,
-        "status": 2,
-        "expiry": 1767157200,
-        "sessionUserId": "teacher1@university.edu",
-        "sessionDuration": 86400,
-        "sessionPrivileges": "enableentitlement,widget:1,urirestrict:/api_v3/service/media/*,/api_v3/service/caption_captionasset/*",
-        "hashType": "SHA256",
-        "objectType": "KalturaAppToken",
-        "label": "ANTH-201-01",
-        "notes": [
-            ("This token has access limited to media and caption endpoints", "2022-03-05 22:18:10"),
-        ],
-    },
-    {
-        "kaltura_token_id": "1_1p5x2pya",
-        "token": "0a8c24ddc480a37ed130fda312b47123",
-        "partnerId": 12312312,
-        "createdAt": 1666634128,
-        "updatedAt": 1666634128,
-        "status": 2,
-        "sessionType": 0,
-        "expiry": 1767157200,
-        "sessionDuration": 86400,
-        "sessionUserId": "teacher@university.edu",
-        "sessionPrivileges": "setrole:25448593,editadmintags:*",
-        "description": '{"type": "kalturaTESTAppToken", "version": "1.0.0"}',
-        "label": "CIS10101-Test",
-        "notes": [
-            ("This token was created for access to ARTH-101 course videos.", "2022-01-06 17:10:24"),
-            ("Updated label", "2022-03-05 22:18:10"),
-        ],
-    },
+            ("This token was created for testing with unrestricted access to APIs", "2022-01-06 17:10:24"),
+        ]
+    }
 ]
 
 SAMPLE_USERS = [
@@ -78,15 +43,15 @@ SAMPLE_USERS = [
 
 SAMPLE_CONFIG = [
     {
-        "allowed_categories": "594123,634123"
+        "allowed_categories": ""
     }
 ]
 
 SAMPLE_SESSION_DEFAULTS = [
     {
-        "partner_id": 12121212,
+        "partner_id": 4526213,
         "session_expiry": 86400,
-        "use_local_storage": True
+        "use_local_storage": False
     }
 ]
 

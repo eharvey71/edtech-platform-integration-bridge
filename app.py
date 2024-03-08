@@ -1,13 +1,14 @@
 # app.py
 
-from flask import render_template, redirect, url_for, request, flash, send_from_directory
+from flask import render_template, redirect, url_for, request, flash, send_from_directory, jsonify
 from flask_login import login_required, logout_user, login_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 from models import KalturaAppToken, AccessRestrictions, User, AppTokenSessionDefaults, \
     UICustomizations, db
 from config import login_manager
-import logger
+import logger, base64
+from auth_handler import get_user_credentials, swag_auth
 
 @config.connex_app.app.context_processor
 def app_globals():
@@ -143,15 +144,16 @@ def signup_post():
     username = request.form.get('username')
     password = request.form.get('password')
     email = request.form.get('email')
+    role = request.form.get('role')
 
     user = User.query.filter_by(username=username).first() # if this returns a user, then the username already exists in database
 
     if user: # if a user is found, we want to redirect back to signup page so user can try again
-        flash('Email address already exists', 'warning')
+        flash('User already exists', 'warning')
         return redirect(url_for('signup'))
     
     # create a new user with the form data. Hash the password so plaintext version isn't saved.
-    new_user = User(username=username, password=generate_password_hash(password, method='pbkdf2'), email=email)
+    new_user = User(username=username, password=generate_password_hash(password, method='pbkdf2'), email=email, role=role)
 
     # add the new user to the database
     db.session.add(new_user)
@@ -164,6 +166,16 @@ def signup_post():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+# route for internal authorizations needed by JS
+# performing requests. Admin auth needs is required
+# for additional session validation.
+@app.route('/get_auth_token')
+@login_required
+def get_auth_token():
+    username, password = get_user_credentials(username=current_user.username)
+    token = base64.b64encode(f"{username}:{password}".encode()).decode('utf-8')
+    return jsonify({'token': token})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
