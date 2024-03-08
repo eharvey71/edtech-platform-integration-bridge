@@ -8,7 +8,7 @@ from models import KalturaAppToken, AccessRestrictions, User, AppTokenSessionDef
     UICustomizations, db
 from config import login_manager
 import logger, base64
-from auth_handler import get_user_credentials, swag_auth
+from auth_handler import get_user_credentials, swag_auth, generate_token
 
 @config.connex_app.app.context_processor
 def app_globals():
@@ -104,7 +104,7 @@ def apidocs():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', username=current_user.username)
+    return render_template('profile.html', username=current_user.username, role=current_user.role)
 
 @app.route('/login')
 def login():
@@ -177,5 +177,12 @@ def get_auth_token():
     token = base64.b64encode(f"{username}:{password}".encode()).decode('utf-8')
     return jsonify({'token': token})
 
+@app.route('/auth')
+@login_required
+def auth():
+    username, password = get_user_credentials(username=current_user.username)
+    jwt = generate_token(username)
+    return jsonify({'token': jwt})
+    
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

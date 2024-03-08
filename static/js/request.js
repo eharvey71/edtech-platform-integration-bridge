@@ -54,13 +54,8 @@ export function updateData(data, endpoint, callback) {
 
 }
 
-export function sendQuery(form, action, endpoint, callback) {
-  // Convert form data into query parameters
+export function sendSecureQuery(form, action, endpoint, isJsonRequest, callback) {
   const formData = new FormData(form);
-  const queryParams = new URLSearchParams(formData).toString();
-
-  // Prepare the endpoint URL with query parameters
-  const urlWithParams = `${endpoint}?${queryParams}`;
 
   getAuthToken().then(token => {
       const request = new XMLHttpRequest();
@@ -69,17 +64,31 @@ export function sendQuery(form, action, endpoint, callback) {
               callback(request.response, form);
           }
       };
-      request.open(action, urlWithParams, true);
-      request.setRequestHeader("Authorization", "Basic " + token);
 
-      // Since you're not sending a request body, there's no need to set Content-Type here
-      // Send the request without a body
-      request.send();
+      request.open(action, endpoint, true);
+      request.setRequestHeader("Authorization", "Bearer " + token);
+
+      if (isJsonRequest) {
+          // Convert form data to a JSON object
+          const jsonBody = Object.fromEntries(formData.entries());
+          request.setRequestHeader("Content-Type", "application/json");
+
+          console.log(`Sending JSON request to ${endpoint}`);
+          request.send(JSON.stringify(jsonBody));
+      } else {
+          // Convert form data into query parameters for URL
+          const queryParams = new URLSearchParams(formData).toString();
+          const urlWithParams = `${endpoint}?${queryParams}`;
+          
+          console.log(`Sending query parameter request to ${urlWithParams}`);
+          // No need to set Content-Type for query parameter requests
+          request.send();
+      }
   });
 }
 
 function getAuthToken() {
-  return fetch('/get_auth_token')
+  return fetch('/auth')
       .then(response => response.json())
       .then(data => data.token);
 }

@@ -19,5 +19,6 @@ post:
   responses:
     "201":
       description: "Successfully created a note"
-  # security:
-  #   - basic: []
+  security:
+    - basic: []
+    - jwt: ['secret']

@@ -2,3 +2,8 @@ basic:
   type: 'http'
   scheme: 'basic'
   x-basicInfoFunc: auth_handler.swag_auth
+jwt:
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  x-bearerInfoFunc: auth_handler.decode_token

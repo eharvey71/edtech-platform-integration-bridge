@@ -1,6 +1,6 @@
 // static/js/tokens.js
 
-import { sendForm, sendQuery } from "./request.js";
+import { sendSecureQuery } from "./request.js";
 
 export class Tokens {
     constructor() {
@@ -55,7 +55,7 @@ export class Tokens {
       event.preventDefault();
       const endpoint = "/api/token/" + this.tokenID;
       if (window.confirm("Do you really want to remove this token?")) {
-        sendQuery(this.form, "DELETE", endpoint, (data, inputForm) => {
+        sendSecureQuery(this.form, "DELETE", endpoint, false, (data, inputForm) => {
           let tokenCard = inputForm.closest(".token-card");
           tokenCard.remove();
         });
@@ -65,7 +65,7 @@ export class Tokens {
     handleUpdateClick(event) {
       event.preventDefault();
       const endpoint = "/api/token/" + this.tokenID;
-      sendForm(this.form, "PUT", endpoint, this.updateTokenInList);
+      sendSecureQuery(this.form, "PUT", endpoint, true, this.updateTokenInList);
       this.cancelBtn.click();
     }
   

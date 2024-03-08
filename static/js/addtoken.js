@@ -1,4 +1,4 @@
-import { sendForm, getData, updateData } from "./request.js";
+import { sendSecureQuery, sendForm, getData, updateData } from "./request.js";
 
 export class AddToken {
   constructor() {
@@ -49,10 +49,11 @@ class tokenAddExistingForm {
     if (this.validateAddTokenForm()) {
       // Create the new token in the database via local API
       try {
-        const response = sendForm(
+        const response = sendSecureQuery(
           this.form,
           "POST",
           "/api/tokens",
+          true,
           this.addTokenConfirm
         );
       } catch (error) {

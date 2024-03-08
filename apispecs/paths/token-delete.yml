@@ -10,3 +10,4 @@ delete:
       description: "Successfully deleted token"
   security:
     - basic: []
+    - jwt: ['secret']

@@ -1,6 +1,6 @@
 // static/js/notes.js
 
-import { sendForm } from "./request.js";
+import { sendSecureQuery } from "./request.js";
 
 export class Notes {
   constructor() {
@@ -41,7 +41,7 @@ export class NoteCreateForm {
   handleCreateClick(event) {
     event.preventDefault();
     if (this.form.querySelector("input[name='content']").value.length > 0) {
-      sendForm(this.form, "POST", "/api/notes", this.addNoteToList);
+      sendSecureQuery(this.form, "POST", "/api/notes", true ,this.addNoteToList);
     }
     this.form.reset();
   }
