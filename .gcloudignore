@@ -1,7 +1,5 @@
 # Ignore certain Integration Bridge objects
-build_prod_db.py
-logs/log
-database/epib.db
+#build_prod_db.py
 
 ### Node ###
 # Logs

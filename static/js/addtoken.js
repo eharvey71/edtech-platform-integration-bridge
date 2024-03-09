@@ -1,4 +1,4 @@
-import { sendSecureQuery, sendForm, getData, updateData } from "./request.js";
+import { sendSecureQuery, getData, updateData } from "./request.js";
 
 export class AddToken {
   constructor() {

@@ -34,24 +34,26 @@ export function sendForm(form, action, endpoint, callback) {
 }
 
 export function updateData(data, endpoint, callback) {
-  const currentProtocol = window.location.protocol; // 'http:' or 'https:'
-  const baseUrl = `${currentProtocol}//${window.location.host}`;
-  const fullUrl = `${baseUrl}${endpoint}`;
-  
-  console.log("updateData - Full URL", fullUrl);
 
   const dataJSON = JSON.stringify(data);
   
-  const request = new XMLHttpRequest();
-  request.onreadystatechange = () => {
-    if (request.readyState === 4) {
-      //callback(request.response);
-      console.log("updateData readystate and response", request.readyState, request.response);
-    }
-  };
+  console.log("updateData", dataJSON)
+  console.log(endpoint)
   
-  request.open("PUT", fullUrl);
-
+  getAuthToken().then(token => {
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = () => {
+      if (request.readyState === 4) {
+        //callback(request.response);
+        console.log("updateData readystate and response", request.readyState, request.response);
+      }
+    };
+    
+    request.open("PUT", endpoint);
+    request.setRequestHeader("Authorization", "Bearer " + token);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(dataJSON);
+  });
 }
 
 export function sendSecureQuery(form, action, endpoint, isJsonRequest, callback) {
