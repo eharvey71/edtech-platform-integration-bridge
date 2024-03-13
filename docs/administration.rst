@@ -9,7 +9,7 @@ Authentication
 --------------
 
 Once the application has been deployed, an administrator can access the interface at the root of the domain.
-Login with the default credentials to get started.
+Login with the default credentials to get started: testadmin:integrationbridge
 
 .. figure:: img/loginpage.jpg
    :alt: Login Page

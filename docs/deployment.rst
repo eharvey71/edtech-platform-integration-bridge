@@ -65,6 +65,20 @@ Please use them as a guide to get things started on certain target platforms.
 Containerized App on Google Cloud Run - Example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. important::
+    In this example, it is important to note that configuration changes made within the app will not persist
+    while using the default configuration, since SQLite and a static, local log files are used.
+
+    Configuration updates and logging will appear to work fine, initially, but will likely disappear
+    due to the nature of local storage on GCloud Run. If you don't intend to make changes beyond a single initial
+    configuration, you'll want to make your changes in the build_prod_db.py, which will create the initial database
+    during deployment with all of your desired configuration and apptokens. Logging, however, will not persist.
+    In this case, you will want to automate a periodic pull of logs via the logs endpoint in order to retain udpates.
+
+    If GCloud Run is preferred for deployment, `Google offers many storage options`_ that you'll want to explore.
+
+    .. _Google offers many storage options: https://cloud.google.com/run/docs/storage-options
+
 This is just one method for deploying to Google Cloud Run. 
 Using the UI provided by Google for deployment works fine but may be confusing, so this assumes knowlege of the Google CLI.
 This is a simplified version to help get you started. Please refer to Google's documentation
@@ -98,7 +112,7 @@ for configuring your serverless instance and setting up your monitoring dashboar
     RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
 
     # Build the starter sample database
-    RUN python build_database.py
+    RUN python build_prod_db.py
 
     # Production uses gunicorn
     CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app:app
