@@ -9,6 +9,6 @@ Kaltura-specific customization
    :alt: Login Page
    :align: center
    
-   Customized Integration Brdige for use with Kaltura APIs
+   Customized Integration Bridge app for use with Kaltura APIs
 
 More to come ...
