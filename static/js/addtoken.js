@@ -5,7 +5,7 @@ export class AddToken {
     this.getTokenInfo = document.querySelector(".form-check-input");
     this.addExistingToken = document.querySelector(".add-existing-token");
     this.activateAddExistingForm();
-    console.log("constructor. Get Token info checked?", this.getTokenInfo.checked);
+    //console.log("constructor. Get Token info checked?", this.getTokenInfo.checked);
     //this.activateAddNewForm();
   }
 
@@ -67,12 +67,10 @@ class tokenAddExistingForm {
 
   handleCreateCheck(event) {
     event.preventDefault();
-    console.log("handleCreateCheck", this.createCheck.checked);
   }
 
   addTokenConfirm(rawData) {
     const data = JSON.parse(rawData);
-    console.log("local add token confirm:", data);
     const tokenStatus = document.querySelector(".confirm-add-existing");
     
     if (data.kaltura_token_id != '') {
@@ -85,7 +83,6 @@ class tokenAddExistingForm {
   getKalturaToken() {
     // If exists, get the KS from the form
     this.currentKS = document.querySelector(".ks-token").value;
-    console.log("handleCreateClick", this.currentKS);
 
     // Run a query using GetData from request.js
     const endpoint = "https://www.kaltura.com/api_v3/service/apptoken/action/get?ks=" 
@@ -98,7 +95,6 @@ class tokenAddExistingForm {
 
   updateTokenConfirm(rawData) { 
     const data = JSON.parse(rawData);
-    console.log("updateTokenConfirm:", data);
     if (data.objectType == "KalturaAPIException") {
       console.log ("Kaltura exception: ", data.message)
       const tokenStatus = document.querySelector(".error-add-existing");
@@ -109,7 +105,7 @@ class tokenAddExistingForm {
       updateData(
         data,
         "/api/tokens",
-        console.log("update token confirm:", data)
+        console.log("update token confirmed") // console.log(data)
       );
     }
   }

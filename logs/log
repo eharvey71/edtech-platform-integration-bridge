@@ -71,3 +71,5 @@ begin log
 [03-08-2024 11:10:16] login attempt succeeded for user: admin
 [03-08-2024 13:46:56] login attempt succeeded for user: admin
 [03-08-2024 14:28:58] Swagger UI Auth succeeded for user: admin
+[03-13-2024 15:33:27] login attempt failed for user: admin
+[03-13-2024 15:33:40] login attempt succeeded for user: testadmin

@@ -8,7 +8,7 @@ function main() {
   new Notes();
   new Tokens();
   if (document.querySelector(".add-existing-token")) {
-    console.log("add existing token form found")
+    //console.log("add existing token form found")
     new AddToken();
   }
 }
