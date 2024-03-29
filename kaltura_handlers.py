@@ -72,6 +72,8 @@ def get_entries_by_category(category_id, ks='', label=''):
             """
             + category_id
         )
+        
+        print(data)
 
         response = requests.post(
             kaltura_service_url + '/media/action/list', headers=kaltura_header, data=data
@@ -115,7 +117,7 @@ def start_ksession(payload):
     token_id = payload["kaltura_token_id"]
 
     # For session type to 0. Kaltura admin can override at the time of token creation.
-    session_type = 0
+    session_type = 2
     session_privileges = ''
 
     # Create an unpriviliged KS for use in generating a new app token session

@@ -73,3 +73,26 @@ begin log
 [03-08-2024 14:28:58] Swagger UI Auth succeeded for user: admin
 [03-13-2024 15:33:27] login attempt failed for user: admin
 [03-13-2024 15:33:40] login attempt succeeded for user: testadmin
+[03-15-2024 10:59:50] login attempt failed for user: admin
+[03-15-2024 11:00:18] login attempt succeeded for user: testadmin
+[03-27-2024 07:36:37] login attempt failed for user: admin
+[03-27-2024 07:36:46] login attempt succeeded for user: admin
+[03-27-2024 07:48:04] Kaltura session (Apptoken KS created) using token ID 1_7ihoyk2k
+[03-27-2024 11:11:40] login attempt succeeded for user: palmbeach
+[03-27-2024 11:17:16] login attempt failed for user: palmbeach
+[03-27-2024 11:17:45] login attempt succeeded for user: admin
+[03-27-2024 12:32:00] login attempt succeeded for user: admin
+[03-28-2024 09:24:34] login attempt succeeded for user: admin
+[03-28-2024 19:55:28] login attempt succeeded for user: admin
+[03-28-2024 19:56:20] Label used and labels aren't being forced: Get entries from category: 22362571
+[03-28-2024 19:56:20] Generating a KS with token id: 1_7ihoyk2k
+[03-28-2024 19:56:21] Kaltura session (Apptoken KS created) using token ID 1_7ihoyk2k
+[03-28-2024 19:56:21] Retrieved entries by category ID 22362571
+[03-28-2024 19:58:51] Label used and labels aren't being forced: Get entries from category: 22362571
+[03-28-2024 19:58:51] Generating a KS with token id: 1_7ihoyk2k
+[03-28-2024 19:58:52] Kaltura session (Apptoken KS created) using token ID 1_7ihoyk2k
+[03-28-2024 19:58:52] Retrieved entries by category ID 22362571
+[03-28-2024 20:02:42] Label used and labels aren't being forced: Get entries from category: 22362571
+[03-28-2024 20:02:42] Generating a KS with token id: 1_7ihoyk2k
+[03-28-2024 20:02:42] Kaltura session (Apptoken KS created) using token ID 1_7ihoyk2k
+[03-28-2024 20:02:42] Retrieved entries by category ID 22362571
