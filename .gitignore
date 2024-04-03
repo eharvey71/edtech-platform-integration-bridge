@@ -1,5 +1,7 @@
 # Ignore certain Integration Bridge objects
 build_prod_db.py
+logs/*
+!logs/.gitkeep
 
 ### Node ###
 # Logs
