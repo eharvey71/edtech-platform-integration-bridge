@@ -96,3 +96,15 @@ begin log
 [03-28-2024 20:02:42] Generating a KS with token id: 1_7ihoyk2k
 [03-28-2024 20:02:42] Kaltura session (Apptoken KS created) using token ID 1_7ihoyk2k
 [03-28-2024 20:02:42] Retrieved entries by category ID 22362571
+[03-28-2024 20:17:47] login attempt succeeded for user: admin
+[04-02-2024 21:26:12] login attempt succeeded for user: admin
+[04-02-2024 21:27:25] login attempt succeeded for user: eharvey
+[04-02-2024 21:36:07] login attempt succeeded for user: eharvey
+[04-02-2024 21:59:04] login attempt succeeded for user: eharvey
+[04-02-2024 22:21:48] login attempt succeeded for user: nerd
+[04-02-2024 22:22:00] login attempt failed for user: thedoctor
+[04-02-2024 22:22:11] login attempt succeeded for user: thedoctor
+[04-02-2024 22:24:35] login attempt failed for user: testadmin
+[04-02-2024 22:24:49] login attempt succeeded for user: admin
+[04-02-2024 22:25:50] login attempt failed for user: admin
+[04-02-2024 22:25:56] login attempt succeeded for user: testadmin

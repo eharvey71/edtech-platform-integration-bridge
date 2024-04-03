@@ -90,7 +90,6 @@ def configpage():
         
         return redirect(url_for('configpage'))
     
-
 @app.route('/addtokens')
 @login_required
 def addtokens():
@@ -132,34 +131,40 @@ def login_post():
     login_user(user, remember=remember)
     return redirect(url_for('addtokens'))
 
-@app.route('/signup')
+@app.route('/adduser', methods=['GET','POST'])
 @login_required
-def signup():
-    return render_template('signup.html')
+def adduser():
+    if request.method == 'POST':
+        
+        # code to validate and add user to database goes here
+        username = request.form.get('username')
+        password = request.form.get('password')
+        email = request.form.get('email')
+        role = request.form.get('role')
 
-@app.route('/signup', methods=['POST'])
-@login_required
-def signup_post():
-    # code to validate and add user to database goes here
-    username = request.form.get('username')
-    password = request.form.get('password')
-    email = request.form.get('email')
-    role = request.form.get('role')
+        user = User.query.filter_by(username=username).first() # if this returns a user, then the username already exists in database
+        emailcheck = User.query.filter_by(email=email).first()
+        if user:
+            flash('User already exists. Please try again', 'warning')
+            return redirect(url_for('adduser'))
+        
+        if emailcheck:
+            flash('Email already associated with another user. Please Try again', 'warning')
+            return redirect(url_for('adduser'))
+        
+        # create a new user with the form data. Hash the password so plaintext version isn't saved.
+        new_user = User(username=username, password=generate_password_hash(password, method='pbkdf2'), email=email, role=role)
 
-    user = User.query.filter_by(username=username).first() # if this returns a user, then the username already exists in database
+        # add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
 
-    if user: # if a user is found, we want to redirect back to signup page so user can try again
-        flash('User already exists', 'warning')
-        return redirect(url_for('signup'))
+        flash('New user ' + username + ' added', 'success')
+        return redirect(url_for('adduser'))
     
-    # create a new user with the form data. Hash the password so plaintext version isn't saved.
-    new_user = User(username=username, password=generate_password_hash(password, method='pbkdf2'), email=email, role=role)
-
-    # add the new user to the database
-    db.session.add(new_user)
-    db.session.commit()
-
-    return redirect(url_for('login'))
+    elif request.method == 'GET':
+        return render_template('adduser.html')
+        
 
 @app.route('/logout')
 @login_required
