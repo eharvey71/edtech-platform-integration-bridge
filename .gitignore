@@ -1,6 +1,6 @@
 # Ignore certain Integration Bridge objects
 build_prod_db.py
-logs/log
+log
 
 ### Node ###
 # Logs
@@ -329,5 +329,6 @@ pyrightconfig.json
 .ionide
 
 .DS_Store
+.vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,node,visualstudiocode
