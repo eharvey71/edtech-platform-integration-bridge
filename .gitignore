@@ -1,6 +1,5 @@
 # Ignore certain Integration Bridge objects
 build_prod_db.py
-log
 
 ### Node ###
 # Logs
