@@ -8,8 +8,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Dev - Install any needed packages specified in requirements.txt
-# RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir -r requirements-prod.txt
+RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements-prod.txt
 
 # Generate a random secret key and store it in an environment variable
 RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
