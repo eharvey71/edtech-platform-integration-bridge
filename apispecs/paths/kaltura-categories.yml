@@ -1,0 +1,13 @@
+get:
+  operationId: "kaltura_handlers.filter_category"
+  tags:
+    - "Caption and Entry Assets (Uses Kaltura API)"
+  summary: "Return Kaltura Categories based on tag or freetext search"
+  parameters:
+    - $ref: "#/components/parameters/kaltura_tags"
+    - $ref: "#/components/parameters/freetext"
+    - $ref: "#/components/parameters/ks"
+    - $ref: "#/components/parameters/label"
+  responses:
+    "200":
+      description: "Successfully retrieved entries"

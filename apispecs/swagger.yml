@@ -26,6 +26,8 @@ paths:
     $ref: "./paths/kaltura-get-caption-list.yml"
   /kaltura-transcript:
     $ref: "./paths/kaltura-get-transcript.yml"
+  /kaltura-categories:
+    $ref: "./paths/kaltura-categories.yml"
   /tokens/{kaltura_token_id}: 
     $ref: "./paths/get-one-token.yml"
   /tokens:

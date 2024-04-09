@@ -11,12 +11,37 @@ kaltura_header = {
 }
 kaltura_service_url = 'https://www.kaltura.com/api_v3/service'
 
+def filter_category(kaltura_tags='', freetext='', ks='', label=''):
+
+    # TODO: Ensure that category restrictions are applied here?
+    
+    log_info = ''
+    tag_filter = ''
+
+    if kaltura_tags:
+        log_info = f'Retrieving categories tagged with {kaltura_tags}'
+        tag_filter = '&filter[tagsMultiLikeAnd]=' + kaltura_tags 
+
+    if freetext:
+        separator = '\n\n' if log_info else ''
+        log_info += f'{separator}Retrieving categories containing text {freetext}'
+        tag_filter += '&filter[freeText]=' + freetext
+
+    ks = resolveLabels(label, ks, log_info)
+    
+    data = 'ks=' + ks + tag_filter + '&format=1&filter[objectType]=KalturaCategoryFilter'
+    response = requests.post(kaltura_service_url + '/category/action/list', headers=kaltura_header, data=data)
+    json_response = json.loads(response.text)
+    logger.log("Returned category list")
+    
+    return json_response
+    
+
 def get_transcript(entry_id, ks='', label=''):
     
     # Kaltura only returns only XML responses for entry_id/transcript requests
     # JSON is returned only when using an asset id.
     cap_asset_response = get_caption_list(entry_id, ks, label)
-    print(cap_asset_response)
     asset_id = cap_asset_response["objects"][0]["id"]
     
     log_info = 'Get caption transcript for entry id: ' + entry_id

@@ -39,3 +39,15 @@ label:
   in: query
   schema:
     type: "string"
+kaltura_tags:
+  name: "kaltura_tags"
+  description: "tags used as a metadata identifer on Kaltura objects (i.e. entries or categories)"
+  in: query
+  schema:
+    type: "string"
+freetext:
+  name: "freetext"
+  description: "An option for listing category objects. For example, a name attached to a category can be used here (Canvas course name, etc)"
+  in: query
+  schema:
+    type: "string"
