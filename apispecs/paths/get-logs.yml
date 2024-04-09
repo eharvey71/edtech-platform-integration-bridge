@@ -1,0 +1,24 @@
+get:
+  tags:
+    - Logs
+  summary: Retrieve application logs
+  description: Returns the contents of the application logs.
+  operationId: logs_handler.get_logs
+  responses:
+    '200':
+      description: Successfully retrieved logs
+      content:
+        text/plain:
+          schema:
+            type: string
+    '404':
+      description: Log file not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  security:
+    - jwt: ['secret']

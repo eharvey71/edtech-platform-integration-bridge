@@ -1,11 +1,11 @@
 from werkzeug.security import check_password_hash
 from jose import JWTError, jwt
 from werkzeug.exceptions import Unauthorized
-import config, logger, time
+import config, time, os, logger
 from models import User
 
 JWT_ISSUER = "com.enwiseweb.edtechib"
-JWT_SECRET = "ohmysecret" # To be randomly generated at deployment in prod env
+JWT_SECRET = os.getenv('JWT_SECRET', 'missing_JWT_secret - check .env' )
 JWT_LIFETIME_SECONDS = 600
 JWT_ALGORITHM = "HS256"
 

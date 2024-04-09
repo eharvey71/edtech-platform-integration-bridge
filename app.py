@@ -1,9 +1,8 @@
-# app.py
-
 from flask import render_template, redirect, url_for, request, flash, send_from_directory, jsonify
 from flask_login import login_required, logout_user, login_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
+#from connexion.resolver import RelativeResolver
 from models import KalturaAppToken, AccessRestrictions, User, AppTokenSessionDefaults, \
     UICustomizations, db
 from config import login_manager
@@ -22,6 +21,11 @@ def app_globals():
 
 app = config.connex_app
 app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.swagoptions)
+
+#app.add_api(config.basedir / 'apispecs/swagger.yml', \
+#            swagger_ui_options=config.swagoptions, \
+#            resolver=RelativeResolver('apihandlers'))
+
 #app.add_api(config.basedir / 'apispecs/swagger-dev.yml', swagger_ui_options=config.swagoptions)
 
 @login_manager.user_loader

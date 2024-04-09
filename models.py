@@ -1,5 +1,3 @@
-# models.py
-
 from datetime import datetime
 from marshmallow_sqlalchemy import fields
 

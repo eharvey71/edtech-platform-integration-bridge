@@ -36,3 +36,5 @@ paths:
     $ref: "./paths/create-note.yml"
   /notes/{note_id}:
     $ref: "./paths/token-notes.yml"
+  /logs:
+    $ref: "./paths/get-logs.yml"

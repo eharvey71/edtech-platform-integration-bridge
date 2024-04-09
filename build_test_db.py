@@ -1,5 +1,3 @@
-# build_database.py
-
 from datetime import datetime
 from config import app, db
 from models import Note, KalturaAppToken, User, AccessRestrictions, \

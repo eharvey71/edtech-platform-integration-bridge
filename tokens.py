@@ -1,5 +1,3 @@
-# tokens.py
-
 from flask import abort, make_response
 import json
 from config import db

@@ -1,4 +1,3 @@
-
 import datetime
 
 def log(message):
