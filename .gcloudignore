@@ -1,5 +1,7 @@
 # Ignore certain Integration Bridge objects
 #build_prod_db.py
+logs/*
+!logs/.gitkeep
 
 ### Node ###
 # Logs
@@ -326,5 +328,9 @@ pyrightconfig.json
 # Ignore all local history of files
 .history
 .ionide
+
+.DS_Store
+.vscode/
+.python-version
 
 # End of https://www.toptal.com/developers/gitignore/api/python,node,visualstudiocode
