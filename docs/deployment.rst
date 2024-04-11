@@ -38,6 +38,12 @@ Development Server
     # Generate a random secret key and store it in an environment variable
     RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
 
+    # Generate a random key for JWT Auth
+    RUN echo "JWT_SECRET=$(openssl rand -base64 32)" >> .env
+
+    # Flask Debug off
+    RUN echo "DEBUG=False" >> .env
+
     # Build the starter sample database
     RUN python build_database.py
 
@@ -61,6 +67,9 @@ Production Server
 
 The following examples don't take into account the necessary optimization that may be required to deploy the Integation Bridge within certain cloud environments.
 Please use them as a guide to get things started on certain target platforms.
+
+The build_prod_db.py script isn't included in the repository, but you can create your own
+by using the prod_test_db.py as a template.
 
 Containerized App on Google Cloud Run - Example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -90,7 +99,6 @@ for configuring your serverless instance and setting up your monitoring dashboar
 
 2. Clone the repo from: https://github.com/eharvey71/edtech-platform-integration-bridge
 
-   
 3. From the command line, change to the root of the cloned repo. Edit the Dockerfile for "production"
 
 .. code-block::
@@ -111,8 +119,14 @@ for configuring your serverless instance and setting up your monitoring dashboar
     # Generate a random secret key and store it in an environment variable
     RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
 
-    # Build the starter sample database
-    RUN python build_prod_db.py
+    # Generate a random key for JWT Auth
+    RUN echo "JWT_SECRET=$(openssl rand -base64 32)" >> .env
+
+    # Flask Debug off
+    RUN echo "DEBUG=False" >> .env
+
+    # Build the production database
+    RUN python build_prod_db.py 
 
     # Production uses gunicorn
     CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app:app
