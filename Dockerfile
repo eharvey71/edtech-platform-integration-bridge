@@ -21,7 +21,7 @@ RUN echo "JWT_SECRET=$(openssl rand -base64 32)" >> .env
 RUN echo "DEBUG=False" >> .env
 
 # Build the starter sample database
-RUN python build_test_db.py
+# RUN python build_test_db.py
 # Build a production database - Note that SQLite will not persist within a vanilla Google Cloud Run configuration
 #RUN python build_prod_db.py
 
