@@ -28,6 +28,8 @@ paths:
     $ref: "./paths/kaltura-get-transcript.yml"
   /kaltura-categories:
     $ref: "./paths/kaltura-categories.yml"
+  /kaltura-category-info:
+    $ref: "./paths/kaltura-category-info.yml"
   /tokens/{kaltura_token_id}: 
     $ref: "./paths/get-one-token.yml"
   /tokens:

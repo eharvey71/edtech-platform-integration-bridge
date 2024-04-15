@@ -64,51 +64,48 @@ def get_caption_list(entry_id, ks='', label=''):
     logger.log('Caption list retrieved for entry ID: ' + str(entry_id))
 
     return json_response
-   
-def get_entries_by_category(category_id, ks='', label=''):
 
-    isAllowed = False
-    empty_response = {"objects": []}
-
-    # Check against allowed categories list in database
-    access_restrictions = AccessRestrictions.query.get(1)
-    allowed_categories = access_restrictions.allowed_categories
+def get_category_info(category_id, ks='', label=''):
     
-    if allowed_categories == '':
-        isAllowed = True
+    empty_response = {"objects": []}
+    
+    if category_allowed(category_id):
+        log_info = 'Getting info for a single category: ' + category_id
+        ks = resolveLabels(label, ks, log_info)
+        data = 'ks=' +  ks + '&format=1&id=' + category_id
+        response = requests.post(kaltura_service_url + '/category/action/get', headers=kaltura_header, data=data)
+        json_response = json.loads(response.text)
     else:
-        allowed_categories_list = [int(x) for x in allowed_categories.split(',')]
+        json_response = empty_response
+        logger.log('Attempted to retrieve info by category ID ' + str(category_id) + ' but was not administratively allowed')
 
-        for category in allowed_categories_list:
-            if category == int(category_id):
-                isAllowed = True
+    return json_response
+   
+def get_entries_by_category(category_id='', full_cat_id='', ks='', label=''):
+
+    empty_response = {"objects": []}
+    isAllowed = category_allowed(category_id)
 
     if isAllowed:
-        log_info = 'Get entries from category: ' + category_id
-        ks = resolveLabels(label, ks, log_info)
-
-        data = (
-            """ks="""
-            + ks
-            + """
-            &format=1
-            &filter[objectType]=KalturaMediaEntryFilter
-            &filter[categoriesIdsMatchAnd]=
-            """
-            + category_id
-        )
         
-        print(data)
-
+        if full_cat_id:
+            log_info = 'Get entries using full category id: ' + full_cat_id
+            ks = resolveLabels(label, ks, log_info)
+            data = 'ks=' + ks + '&format=1&filter[objectType]=KalturaMediaEntryFilter&filter[categoriesFullNameIn]=' + full_cat_id
+            
+        elif category_id:
+            log_info = 'Get entries from category: ' + category_id
+            ks = resolveLabels(label, ks, log_info)
+            data = 'ks=' + ks + '&format=1&filter[objectType]=KalturaMediaEntryFilter&filter[categoriesIdsMatchAnd]=' + category_id
+            
         response = requests.post(
             kaltura_service_url + '/media/action/list', headers=kaltura_header, data=data
         )
         json_response = json.loads(response.text)
-        logger.log('Retrieved entries by category ID ' + str(category_id))
 
     else:
         json_response = empty_response
-        logger.log('Attempted to retrieve entries by category ID ' + str(category_id) + ' but was not allowed')
+        logger.log('Attempted to retrieve entries by category ID ' + str(category_id) + ' but was not administratively allowed')
 
     return json_response
 
@@ -163,20 +160,6 @@ def start_ksession(payload):
     logger.log('Kaltura session (Apptoken KS created) using token ID ' + token_id)
     return ksession
 
-# def get_entry(entry_id, ks, label=""):
-#     if ks == "":
-#         # Generate a token KS if one is not provided, using label
-#         # Label will allow retrieval of the token and token ID from the database
-#         ks = token_ks()
-
-#     data = 'ks=' +  ks + '&format=1&entryId=' + entry_id
-#     response = requests.post(
-#         kaltura_service_url + '/media/action/get', headers=kaltura_header, data=data
-#     )
-#     resp_dict = json.loads(response.text)
-#     logger.log("Retrieved info for entry: " + str(entry_id))
-#     return resp_dict
-
 def resolveLabels(label, ks, log_info: str):
 
     Denied = False
@@ -230,3 +213,22 @@ def check_token(token_id):
             break
     
     return good_token
+
+def category_allowed(category_id):
+    
+    isAllowed = False
+    
+    # Check against allowed categories list in database
+    access_restrictions = AccessRestrictions.query.get(1)
+    allowed_categories = access_restrictions.allowed_categories
+    
+    if allowed_categories == '':
+        isAllowed = True
+    else:
+        allowed_categories_list = [int(x) for x in allowed_categories.split(',')]
+
+        for category in allowed_categories_list:
+            if category == int(category_id):
+                isAllowed = True
+    
+    return isAllowed

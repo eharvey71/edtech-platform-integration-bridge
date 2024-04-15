@@ -1,13 +1,13 @@
 get:
-  operationId: "kaltura_handlers.get_entries_by_category"
+  operationId: "kaltura_handlers.get_category_info"
   tags:
     - "Caption and Entry Assets (Uses Kaltura API)"
-  summary: "Retrieve all entries for a specific category or by using the full name of the category"
+  summary: "Retrieve information for a specific Kaltura category ID"
   parameters:
     - $ref: "#/components/parameters/category_id"
+      required: true
     - $ref: "#/components/parameters/ks"
     - $ref: "#/components/parameters/label"
-    - $ref: "#/components/parameters/full_cat_id"
   responses:
     "200":
       description: "Successfully retrieved entries"

@@ -23,7 +23,6 @@ category_id:
   name: "category_id"
   description: "ID of a Kaltura category"
   in: query
-  required: true
   schema:
     type: "string"
 ks:
@@ -48,6 +47,12 @@ kaltura_tags:
 freetext:
   name: "freetext"
   description: "An option for listing category objects. For example, a name attached to a category can be used here (Canvas course name, etc)"
+  in: query
+  schema:
+    type: "string"
+full_cat_id:
+  name: "full_cat_id"
+  description: "Full ID of a Kaltura category. Usually in a format similar to Canvas>site>channels>1234512"
   in: query
   schema:
     type: "string"
