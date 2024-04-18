@@ -1,6 +1,9 @@
 Welcome to the EdTech Platform Integration Bridge - Beta Project
 ================================================================
 
+Have a look at the documentation for more:
+https://edtech-platform-integration-bridge.readthedocs.io/en/latest/index.html
+
 This iteration serves as a "middleware" application and abstraction tool for working with Kaltura APIs.
 Due to policies and standards in dealing with sensitive data (students, trainees) it is important for schools (Higher Ed, K12) and corporations to track interactions between third party (external, SaaS, cloud-hosted) vendor integrations and internal platforms.
 
