@@ -1,7 +1,7 @@
 delete:
   tags:
     - App Tokens (Integration Manager Only)
-  operationId: "tokens.delete"
+  operationId: "src.tokens.delete"
   summary: "Delete a token"
   parameters:
     - $ref: "#/components/parameters/kaltura_token_id"

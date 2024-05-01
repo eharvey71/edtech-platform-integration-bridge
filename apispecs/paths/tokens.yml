@@ -1,5 +1,5 @@
 get:
-  operationId: "tokens.read_all"
+  operationId: "src.tokens.read_all"
   tags:
     - App Tokens (Integration Manager Only)
   summary: "Read the list of Kaltura App Tokens"
@@ -9,7 +9,7 @@ get:
   security:
     - basic: []
 post:
-  operationId: "tokens.add_existing"
+  operationId: "src.tokens.add_existing"
   tags:
     - App Tokens (Integration Manager Only)
   summary: "Add a Kaltura App Token"
@@ -33,7 +33,7 @@ post:
     - basic: []
     - jwt: ['secret']
 put:
-  operationId: "tokens.update_existing"
+  operationId: "src.tokens.update_existing"
   tags:
     - App Tokens (Integration Manager Only)
   summary: "Update a Kaltura App Token"

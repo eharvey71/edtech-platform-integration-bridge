@@ -1,5 +1,5 @@
 get:
-  operationId: "kaltura_handlers.filter_category"
+  operationId: "src.kaltura_handlers.filter_category"
   tags:
     - "Caption and Entry Assets (Uses Kaltura API)"
   summary: "Return Kaltura Categories based on tag or freetext search"

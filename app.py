@@ -3,11 +3,11 @@ from flask_login import login_required, logout_user, login_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 #from connexion.resolver import RelativeResolver
-from models import KalturaAppToken, AccessRestrictions, User, AppTokenSessionDefaults, \
+from src.models import KalturaAppToken, AccessRestrictions, User, AppTokenSessionDefaults, \
     UICustomizations, VendorProxies, db
 from config import login_manager
-import logger, base64
-from auth_handler import get_user_credentials, swag_auth, generate_token
+import src.logger as logger, base64
+from src.auth_handler import get_user_credentials, swag_auth, generate_token
 
 @config.connex_app.app.context_processor
 def app_globals():

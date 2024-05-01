@@ -1,5 +1,5 @@
 get:
-  operationId: "kaltura_handlers.get_category_info"
+  operationId: "src.kaltura_handlers.get_category_info"
   tags:
     - "Caption and Entry Assets (Uses Kaltura API)"
   summary: "Retrieve information for a specific Kaltura category ID"

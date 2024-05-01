@@ -3,8 +3,8 @@ from KalturaClient.Plugins.Core import *
 from pprint import pprint
 
 import hashlib
-import json, requests, logger
-from models import AccessRestrictions, AppTokenSessionDefaults, KalturaAppToken
+import json, requests, src.logger as logger
+from src.models import AccessRestrictions, AppTokenSessionDefaults, KalturaAppToken
 
 kaltura_header = {
     "Content-Type": "application/x-www-form-urlencoded",
@@ -199,6 +199,7 @@ def resolveLabels(label, ks, log_info: str):
             ks = start_ksession(payload)
         
     if (not Denied) and (ks != ''):
+        if log_info: logger.log(log_info)
         resolved_ks = ks
         
     return resolved_ks

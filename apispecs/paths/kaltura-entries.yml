@@ -1,5 +1,5 @@
 get:
-  operationId: "kaltura_handlers.get_entries_by_category"
+  operationId: "src.kaltura_handlers.get_entries_by_category"
   tags:
     - "Caption and Entry Assets (Uses Kaltura API)"
   summary: "Retrieve all entries for a specific category or by using the full name of the category"

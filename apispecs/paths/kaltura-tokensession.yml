@@ -1,5 +1,5 @@
 post:
-  operationId: "kaltura_handlers.start_ksession"
+  operationId: "src.kaltura_handlers.start_ksession"
   tags:
     - App Token Session (Uses Kaltura API)
   summary: "Create a session using a Kaltura App Token"

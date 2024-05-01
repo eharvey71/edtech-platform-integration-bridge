@@ -1,5 +1,5 @@
 get:
-  operationId: "notes.read_one"
+  operationId: "src.notes.read_one"
   tags:
     - App Tokens (Integration Manager Only)
   summary: "Read one note"
@@ -13,7 +13,7 @@ get:
 put:
   tags:
     - App Tokens (Integration Manager Only)
-  operationId: "notes.update"
+  operationId: "src.notes.update"
   summary: "Update a note"
   parameters:
     - $ref: "#/components/parameters/note_id"
@@ -34,7 +34,7 @@ put:
 delete:
   tags:
     - App Tokens (Integration Manager Only)
-  operationId: "notes.delete"
+  operationId: "src.notes.delete"
   summary: "Delete a note"
   parameters:
     - $ref: "#/components/parameters/note_id"

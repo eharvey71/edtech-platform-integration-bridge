@@ -1,7 +1,7 @@
 from flask import abort, make_response
 import json
 from config import db
-from models import KalturaAppToken, kapptoken_schema, kapptokens_schema
+from src.models import KalturaAppToken, kapptoken_schema, kapptokens_schema
 
 def read_all():
     tokens = KalturaAppToken.query.all()
