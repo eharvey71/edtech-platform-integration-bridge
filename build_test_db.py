@@ -1,7 +1,7 @@
 from datetime import datetime
 from config import app, db
 from models import Note, KalturaAppToken, User, AccessRestrictions, \
-    AppTokenSessionDefaults, UICustomizations
+    AppTokenSessionDefaults, UICustomizations, VendorProxies
 
 SAMPLE_TOKENS = [
     {
@@ -138,4 +138,9 @@ with app.app_context():
         integrator_title="EdTech Platform Integration Bridge"
     )
     db.session.add(new_ui_customizations)
+    proxy_status = VendorProxies(
+        kaltura_proxy_enabled=True,
+        canvas_proxy_enabled=False
+    )
+    db.session.add(proxy_status)
     db.session.commit()

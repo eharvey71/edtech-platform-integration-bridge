@@ -2,8 +2,10 @@
 {{ super() }} {% endblock %} {% block content %}
 
 <div style="border-radius: 5px; padding: 20px">
-  <form action="/config?f=restrictions" method="post" id="restrictions">
-    <h4>Kaltura Access Restrictions</h4>
+  <h3>Kaltura Proxy Configuration</h3>
+  <hr />
+  <form action="/kaltura-config?f=restrictions" method="post" id="restrictions">
+    <h4>Access Restrictions</h4>
     <label style="margin-top: 8px" for="force-cats"
       >Force Category Filtering (list allowed categories, separated by commas)</label
     >
@@ -54,7 +56,7 @@
 </div>
 <hr />
 <div style="border-radius: 5px; padding: 20px">
-  <form action="/config?f=sessions" method="post" id="sessions">
+  <form action="/kaltura-config?f=sessions" method="post" id="sessions">
     <h4>App Token Session Creation Defaults</h4>
     <label for="partner-id">Partner ID</label>
     <div class="col-sm-2">
@@ -99,25 +101,6 @@
     </div>
   </form>
   <button form="sessions" value="submit" type="submit" class="btn btn-info" data-action="update-token-session-config">
-    Update
-  </button>
-</div>
-<hr />
-<div style="border-radius: 5px; padding: 20px">
-  <form action="/config?f=ui" method="post" id="ui">
-    <h4>UI Customization</h4>
-    <label for="integrator-title">Integrator Title</label>
-    <div class="col-sm-2">
-      <input
-        class="form-control"
-        type="text"
-        id="integrator-title"
-        name="integrator-title"
-        value="{{ ui_customizations.integrator_title}}"
-      ><br />
-    </div>
-  </form>
-  <button form="ui" value="submit" type="submit" class="btn btn-info" data-action="update-integrator-config">
     Update
   </button>
 </div>

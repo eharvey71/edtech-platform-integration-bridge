@@ -29,6 +29,12 @@ class UICustomizations(db.Model):
     __tablename__ = "ui_customizations"
     id = db.Column(db.Integer, primary_key=True)
     integrator_title= db.Column(db.String, nullable=False)
+    
+class VendorProxies(db.Model):
+    __tablename__ = "vendor_proxies"
+    id = db.Column(db.Integer, primary_key=True)
+    kaltura_proxy_enabled = db.Column(db.Boolean, nullable=False)
+    canvas_proxy_enabled = db.Column(db.Boolean, nullable=False)
 
 class Note(db.Model):
     __tablename__ = "note"

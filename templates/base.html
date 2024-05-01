@@ -31,31 +31,32 @@
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">{{ custom_title }}</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarColor01"
-          aria-controls="navbarColor01"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+          aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
           <ul class="navbar-nav me-auto">
             {% if current_user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="manage">Manage Tokens</a>
+            <!-- Kaltura dropdown menu -->
+            {% if kaltura_enabled %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="kalturaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Kaltura
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="kalturaDropdown">
+                <li><a class="dropdown-item" href="kaltura-manage">Manage Tokens</a></li>
+                <li><a class="dropdown-item" href="kaltura-addtokens">Add Token</a></li>
+                <li><a class="dropdown-item" href="kaltura-config">Configure</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="addtokens">Add Token</a>
-            </li>
+            {% endif %}
+            <!-- End of Kaltura dropdown -->
             <li class="nav-item">
               <a class="nav-link" href="log">View Logs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="config">Configure</a>
+              <a class="nav-link" href="main-config">Configure</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="apidocs">API Docs</a>
@@ -63,7 +64,8 @@
             <li class="nav-item">
               <a class="nav-link" href="logout">Logout</a>
             </li>
-            {% endif %} {% if not current_user.is_authenticated %}
+            {% endif %}
+            {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="login">Login</a>
             </li>
@@ -71,7 +73,7 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>    
 
     <div>{{ render_messages(dismissible=True) }}</div>
 

@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import config
 #from connexion.resolver import RelativeResolver
 from models import KalturaAppToken, AccessRestrictions, User, AppTokenSessionDefaults, \
-    UICustomizations, db
+    UICustomizations, VendorProxies, db
 from config import login_manager
 import logger, base64
 from auth_handler import get_user_credentials, swag_auth, generate_token
@@ -12,12 +12,20 @@ from auth_handler import get_user_credentials, swag_auth, generate_token
 @config.connex_app.app.context_processor
 def app_globals():
     app_title = UICustomizations.query.get(1)
+    proxies = VendorProxies.query.get(1)
+    
     if app_title:
         title = app_title.integrator_title
     else:
         title = 'Integration Manager'
+    
+    if proxies:
+        kaltura_proxy_enabled = proxies.kaltura_proxy_enabled
+        canvas_proxy_enabled = proxies.canvas_proxy_enabled
 
-    return dict(custom_title=title)
+    return dict(custom_title=title,
+                kaltura_enabled=kaltura_proxy_enabled,
+                canvas_enabled=canvas_proxy_enabled)
 
 app = config.connex_app
 app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.swagoptions)
@@ -40,15 +48,43 @@ def user_loader(user_id):
 @app.route('/')
 def home():
     if current_user.is_authenticated:
-        return redirect(url_for('addtokens'))
+        return redirect(url_for('logpage'))
     else:
         return redirect(url_for('login'))
-
-@app.route('/manage')
+    
+@app.route('/main-config', methods=['GET', 'POST'])
 @login_required
-def manage():
+def main_config(): 
+    ui_customizations = UICustomizations.query.get(1)
+    vendor_proxies = VendorProxies.query.get(1)
+    
+    if request.method == 'GET':
+        return render_template('main-config.html', ui_customizations=ui_customizations,
+                               vendor_proxies=vendor_proxies)
+    
+    elif request.method == 'POST':
+        if request.args.get("f") == "ui":
+            ui_customizations.integrator_title = request.form.get('integrator-title')
+            db.session.add(ui_customizations)
+            db.session.commit()
+            flash('UI config updated', 'warning')
+            
+        elif request.args.get("f") == "vendorproxies":
+            vendor_proxies.kaltura_proxy_enabled = True if request.form.get('kaltura-proxy-enabled') else False
+            vendor_proxies.canvas_proxy_enabled = True if request.form.get('canvas-proxy-enabled') else False
+            db.session.add(vendor_proxies)
+            db.session.commit()
+            flash('Proxy configurations updated', 'warning')
+        
+        return redirect(url_for('main_config'))
+
+@app.route('/kaltura-manage')
+@login_required
+def kaltura_manage():
+    if VendorProxies.query.get(1).kaltura_proxy_enabled == False:
+        return redirect(url_for('main_config'))
     tokens = KalturaAppToken.query.all()
-    return render_template("manage.html", tokens=tokens)
+    return render_template("kaltura-manage.html", tokens=tokens)
 
 @app.route('/log')
 @login_required
@@ -61,16 +97,19 @@ def logpage():
 def send_report(path):
     return send_from_directory('logs', path)
 
-@app.route('/config', methods=('GET', 'POST'))
+@app.route('/kaltura-config', methods=('GET', 'POST'))
 @login_required
-def configpage():
+def kaltura_configpage():
+    if VendorProxies.query.get(1).kaltura_proxy_enabled == False:
+        return redirect(url_for('main_config'))
+    
     access_restrictions = AccessRestrictions.query.get(1)
     apptoken_session_defaults = AppTokenSessionDefaults.query.get(1)
-    ui_customizations = UICustomizations.query.get(1)
+    
     if request.method == 'GET':
-        return render_template('config.html', access_restrictions=access_restrictions, \
-                               apptoken_session_defaults=apptoken_session_defaults, \
-                                ui_customizations=ui_customizations)
+        return render_template('kaltura-config.html', access_restrictions=access_restrictions, \
+                               apptoken_session_defaults=apptoken_session_defaults)
+        
     elif request.method == 'POST':
         
         if request.args.get("f") == "restrictions":
@@ -86,18 +125,15 @@ def configpage():
             db.session.add(apptoken_session_defaults)
             db.session.commit()
             flash('Session Defaults config updated', 'warning')
-        elif request.args.get("f") == "ui":
-            ui_customizations.integrator_title = request.form.get('integrator-title')
-            db.session.add(ui_customizations)
-            db.session.commit()
-            flash('UI config updated', 'warning')
         
-        return redirect(url_for('configpage'))
+        return redirect(url_for('kaltura_configpage'))
     
-@app.route('/addtokens')
+@app.route('/kaltura-addtokens')
 @login_required
 def addtokens():
-    return render_template('addtokens.html')
+    if VendorProxies.query.get(1).kaltura_proxy_enabled == False:
+        return redirect(url_for('main_config'))
+    return render_template('kaltura-addtokens.html')
 
 @app.route('/apidocs')
 @login_required
@@ -133,7 +169,7 @@ def login_post():
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    return redirect(url_for('addtokens'))
+    return redirect(url_for('logpage'))
 
 @app.route('/adduser', methods=['GET','POST'])
 @login_required
