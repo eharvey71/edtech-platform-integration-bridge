@@ -7,26 +7,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
-#from custom_file_handler import CustomFileHandler
 
 basedir = pathlib.Path(__file__).parent.resolve()
+
 load_dotenv()
-
-#custom_file_handler = CustomFileHandler(basedir / "apispecs")
-# # Update Connexion's JSON schema handlers with your custom handler
-# # For when refs aren't working on Windows test machines.
-""" json_schema.handlers.update(
-    {
-        "file": custom_file_handler,
-        "": custom_file_handler,
-    }
-) """
-
 swagoptions = SwaggerUIOptions(
     swagger_ui=True, swagger_ui_template_dir=basedir / "swagger-ui"
 )
 connex_app = FlaskApp(__name__, specification_dir=basedir / "apispecs")
-
 app = connex_app.app
 
 app.config["DEBUG"] = os.getenv("DEBUG", "True")
@@ -38,25 +26,21 @@ app.config["SECRET_KEY"] = os.getenv(
 )
 app.config["MESSAGE_FLASHING_OPTIONS"] = {"duration": 5}
 
-
 @app.template_filter("datetimeformat")
 def datetime_format(timestamp):
     realdate = datetime.utcfromtimestamp(timestamp).strftime("%m-%d-%Y %H:%M:%S")
     return realdate
-
 
 @app.template_filter("secstohours")
 def datetime_format(seconds):
     hours = seconds // 3600
     return hours
 
-
 @app.template_filter("stripwhitespace")
 def strip_whitespace(s):
     sclean = s.replace(" ", "")
     print(sclean)
     return sclean
-
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)

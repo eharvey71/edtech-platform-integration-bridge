@@ -61,7 +61,7 @@ export function sendSecureQuery(form, action, endpoint, isJsonRequest, callback)
 }
 
 function getAuthToken() {
-  return fetch('/auth')
+  return fetch('/auth/token')
       .then(response => response.json())
       .then(data => data.token);
 }

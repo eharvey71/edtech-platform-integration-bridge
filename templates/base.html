@@ -45,29 +45,29 @@
                 Kaltura
               </a>
               <ul class="dropdown-menu" aria-labelledby="kalturaDropdown">
-                <li><a class="dropdown-item" href="kaltura-manage">Manage Tokens</a></li>
-                <li><a class="dropdown-item" href="kaltura-addtokens">Add Token</a></li>
-                <li><a class="dropdown-item" href="kaltura-config">Configure</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('kaltura.kaltura_manage') }}">Manage Tokens</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('kaltura.kaltura_addtokens') }}">Add Token</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('kaltura.kaltura_config') }}">Configure</a></li>
               </ul>
             </li>
             {% endif %}
             <!-- End of Kaltura dropdown -->
             <li class="nav-item">
-              <a class="nav-link" href="log">View Logs</a>
+              <a class="nav-link" href="{{ url_for('logpage') }}">View Logs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="main-config">Configure</a>
+              <a class="nav-link" href="{{ url_for('settings.main_config') }}">Configure</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="apidocs">API Docs</a>
+              <a class="nav-link" href="{{ url_for('apidocs') }}">API Docs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="logout">Logout</a>
+              <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
             </li>
             {% endif %}
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="login">Login</a>
+              <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
             </li>
             {% endif %}
           </ul>
