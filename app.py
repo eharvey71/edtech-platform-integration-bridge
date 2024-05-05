@@ -6,6 +6,7 @@ from config import login_manager
 from auth.routes import auth_bp
 from kaltura.routes import kaltura_bp
 from settings.routes import settings_bp
+from canvas.routes import canvas_bp
 
 @config.connex_app.app.context_processor
 def app_globals():
@@ -27,6 +28,7 @@ app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.s
 app.app.register_blueprint(auth_bp, url_prefix='/auth')
 app.app.register_blueprint(kaltura_bp, url_prefix='/kaltura')
 app.app.register_blueprint(settings_bp, url_prefix='/settings')
+app.app.register_blueprint(canvas_bp, url_prefix='/canvas')
 
 @login_manager.user_loader
 def user_loader(user_id):
