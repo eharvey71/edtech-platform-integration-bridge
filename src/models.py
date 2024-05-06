@@ -85,6 +85,24 @@ class KalturaAppTokenSchema(ma.SQLAlchemyAutoSchema):
         include_relationships = True
 
     notes = fields.Nested(NoteSchema, many=True)
+    
+class CanvasOauthConfig(db.Model):
+    __tablename__ = "canvas_oauth_config"
+    id = db.Column(db.Integer, primary_key=True)
+    canvas_base_url = db.Column(db.String(128), nullable=False)
+    canvas_client_id = db.Column(db.Integer, nullable=False)
+    canvas_client_secret = db.Column(db.String(128), nullable=False)
+    redirect_uri = db.Column(db.String(128), nullable=False)
+    
+class CanvasAuthorizedUsers(db.Model):
+    __tablename__ = "canvas_authorized_users"
+    id = db.Column(db.Integer, primary_key=True)
+    primary_email = db.Column(db.String(128), nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    full_name = db.Column(db.String(128), nullable=True)
+    canvas_access_token = db.Column(db.String(128), nullable=False)
+    canvas_refresh_token = db.Column(db.String(128), nullable=False)
+    canvas_token_expiry = db.Column(db.Integer, nullable=False)
 
 note_schema = NoteSchema()
 kapptoken_schema = KalturaAppTokenSchema()

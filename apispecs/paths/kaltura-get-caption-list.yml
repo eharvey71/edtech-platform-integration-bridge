@@ -1,5 +1,5 @@
 get:
-  operationId: "kaltura_handlers.get_caption_list"
+  operationId: "src.kaltura_handlers.get_caption_list"
   tags:
     - "Caption and Entry Assets (Uses Kaltura API)"
   summary: "Retrieve current caption asset for a Kaltura entry"

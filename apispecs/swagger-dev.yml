@@ -90,7 +90,7 @@ components:
 paths:
   /tokensession:
     post:
-      operationId: "kaltura_handlers.start_ksession"
+      operationId: "src.kaltura_handlers.start_ksession"
       tags:
         - App Token Session (Uses Kaltura API)
       summary: "Create a session using a Kaltura App Token"
@@ -108,7 +108,7 @@ paths:
   #/caption-asset/{entry_id}/ks/{ks}:
   /caption-asset:
     get:
-      operationId: "kaltura_handlers.get_caption_asset"
+      operationId: "src.kaltura_handlers.get_caption_asset"
       tags:
         - "Caption and Entry Assets (Uses Kaltura API)"
       summary: "Retrieve current caption asset for a Kaltura entry"
@@ -122,7 +122,7 @@ paths:
   #/kaltura-entries/{category_id}/ks/{ks}:
   /kaltura-entries:
     get:
-      operationId: "kaltura_handlers.get_entries_by_category"
+      operationId: "src.kaltura_handlers.get_entries_by_category"
       tags:
         - "Caption and Entry Assets (Uses Kaltura API)"
       summary: "Retrieve all entries for a specific category"
@@ -135,7 +135,7 @@ paths:
           description: "Successfully retrieved entries"
   /notes:
     post:
-      operationId: "notes.create"
+      operationId: "src.notes.create"
       tags:
         - App Tokens (Integration Manager Only)
       summary: "Create a note associated with a token"
@@ -157,7 +157,7 @@ paths:
           description: "Successfully created a note"
   /notes/{note_id}:
     get:
-      operationId: "notes.read_one"
+      operationId: "src.notes.read_one"
       tags:
         - App Tokens (Integration Manager Only)
       summary: "Read one note"
@@ -169,7 +169,7 @@ paths:
     put:
       tags:
         - App Tokens (Integration Manager Only)
-      operationId: "notes.update"
+      operationId: "src.notes.update"
       summary: "Update a note"
       parameters:
         - $ref: "#/components/parameters/note_id"
@@ -188,7 +188,7 @@ paths:
     delete:
       tags:
         - App Tokens (Integration Manager Only)
-      operationId: "notes.delete"
+      operationId: "src.notes.delete"
       summary: "Delete a note"
       parameters:
         - $ref: "#/components/parameters/note_id"

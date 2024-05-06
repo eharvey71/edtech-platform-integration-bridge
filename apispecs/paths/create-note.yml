@@ -1,5 +1,5 @@
 post:
-  operationId: "notes.create"
+  operationId: "src.notes.create"
   tags:
     - App Tokens (Integration Manager Only)
   summary: "Create a note associated with a token"

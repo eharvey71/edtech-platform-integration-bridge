@@ -1,7 +1,7 @@
 from flask import abort, make_response
 
 from config import db
-from models import Note, KalturaAppToken, note_schema
+from src.models import Note, KalturaAppToken, note_schema
 
 def read_one(note_id):
     note = Note.query.get(note_id)

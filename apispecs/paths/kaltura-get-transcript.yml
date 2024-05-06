@@ -1,5 +1,5 @@
 get:
-  operationId: "kaltura_handlers.get_transcript"
+  operationId: "src.kaltura_handlers.get_transcript"
   tags:
     - "Caption and Entry Assets (Uses Kaltura API)"
   summary: "Retrieve a caption transcript for a Kaltura entry"

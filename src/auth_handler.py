@@ -1,8 +1,8 @@
 from werkzeug.security import check_password_hash
 from jose import JWTError, jwt
 from werkzeug.exceptions import Unauthorized
-import config, time, os, logger
-from models import User
+import config, time, os, src.logger as logger
+from src.models import User
 
 JWT_ISSUER = "com.enwiseweb.edtechib"
 JWT_SECRET = os.getenv('JWT_SECRET', 'missing_JWT_secret - check .env' )

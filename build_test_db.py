@@ -1,7 +1,7 @@
 from datetime import datetime
 from config import app, db
-from models import Note, KalturaAppToken, User, AccessRestrictions, \
-    AppTokenSessionDefaults, UICustomizations, VendorProxies
+from src.models import Note, KalturaAppToken, User, AccessRestrictions, \
+    AppTokenSessionDefaults, UICustomizations, VendorProxies, CanvasOauthConfig, CanvasAuthorizedUsers
 
 SAMPLE_TOKENS = [
     {
@@ -91,6 +91,7 @@ SAMPLE_SESSION_DEFAULTS = [
 with app.app_context():
     db.drop_all()
     db.create_all()
+
     for data in SAMPLE_TOKENS:
         new_token = KalturaAppToken(
             kaltura_token_id=data.get("kaltura_token_id"),
@@ -115,6 +116,7 @@ with app.app_context():
                 )
             )
         db.session.add(new_token)
+
     for user in SAMPLE_USERS:
         new_user = User(
             username=user.get("username"),
@@ -123,24 +125,37 @@ with app.app_context():
             role=user.get("role")
         )
         db.session.add(new_user)
+
     new_cat_restrict = AccessRestrictions(
         allowed_categories=SAMPLE_CONFIG[0].get("allowed_categories"),
         force_labels=False
     )
     db.session.add(new_cat_restrict)
+
     new_app_token_session_defaults = AppTokenSessionDefaults(
         partner_id=SAMPLE_SESSION_DEFAULTS[0].get("partner_id"),
         session_expiry=SAMPLE_SESSION_DEFAULTS[0].get("session_expiry"),
         use_local_storage=False
     )   
     db.session.add(new_app_token_session_defaults)
+   
     new_ui_customizations = UICustomizations(
         integrator_title="EdTech Platform Integration Bridge"
     )
     db.session.add(new_ui_customizations)
+    
     proxy_status = VendorProxies(
         kaltura_proxy_enabled=True,
         canvas_proxy_enabled=False
     )
     db.session.add(proxy_status)
+
+    canvas_oauth_config = CanvasOauthConfig(
+        canvas_base_url="https://canvas.instructure.com",
+        canvas_client_id="123456",
+        canvas_client_secret="abcdef",
+        redirect_uri="https://example.com/oauth"
+    )
+    db.session.add(canvas_oauth_config)
+    
     db.session.commit()
