@@ -27,7 +27,7 @@ def filter_category(kaltura_tags='', freetext='', ks='', label=''):
         log_info += f'{separator}Retrieving categories containing text {freetext}'
         tag_filter += '&filter[freeText]=' + freetext
 
-    ks = resolveLabels(label, ks, log_info)
+    ks = resolveSession(label, ks, log_info)
     
     data = 'ks=' + ks + tag_filter + '&format=1&filter[objectType]=KalturaCategoryFilter'
     response = requests.post(kaltura_service_url + '/category/action/list', headers=kaltura_header, data=data)
@@ -45,7 +45,7 @@ def get_transcript(entry_id, ks='', label=''):
     asset_id = cap_asset_response["objects"][0]["id"]
     
     log_info = 'Get caption transcript for entry id: ' + entry_id
-    ks = resolveLabels(label, ks, log_info)
+    ks = resolveSession(label, ks, log_info)
     
     data = 'ks=' + ks + '&format=1&captionAssetId=' + asset_id
     response = requests.post(kaltura_service_url + '/caption_captionasset/action/serveAsJson', headers=kaltura_header, data=data)
@@ -57,7 +57,7 @@ def get_transcript(entry_id, ks='', label=''):
 def get_caption_list(entry_id, ks='', label=''):
     
     log_info = 'Get caption list for entry: ' + entry_id
-    ks = resolveLabels(label, ks, log_info)
+    ks = resolveSession(label, ks, log_info)
     data = 'ks=' +  ks + '&format=1&filter[entryIdEqual]=' + entry_id
     response = requests.post(kaltura_service_url + '/caption_captionasset/action/list', headers=kaltura_header, data=data)
     json_response = json.loads(response.text)
@@ -71,7 +71,7 @@ def get_category_info(category_id, ks='', label=''):
     
     if category_allowed(category_id):
         log_info = 'Getting info for a single category: ' + category_id
-        ks = resolveLabels(label, ks, log_info)
+        ks = resolveSession(label, ks, log_info)
         data = 'ks=' +  ks + '&format=1&id=' + category_id
         response = requests.post(kaltura_service_url + '/category/action/get', headers=kaltura_header, data=data)
         json_response = json.loads(response.text)
@@ -90,12 +90,12 @@ def get_entries_by_category(category_id='', full_cat_id='', ks='', label=''):
         
         if full_cat_id:
             log_info = 'Get entries using full category id: ' + full_cat_id
-            ks = resolveLabels(label, ks, log_info)
+            ks = resolveSession(label, ks, log_info)
             data = 'ks=' + ks + '&format=1&filter[objectType]=KalturaMediaEntryFilter&filter[categoriesFullNameIn]=' + full_cat_id
             
         elif category_id:
             log_info = 'Get entries from category: ' + category_id
-            ks = resolveLabels(label, ks, log_info)
+            ks = resolveSession(label, ks, log_info)
             data = 'ks=' + ks + '&format=1&filter[objectType]=KalturaMediaEntryFilter&filter[categoriesIdsMatchAnd]=' + category_id
             
         response = requests.post(
@@ -160,8 +160,7 @@ def start_ksession(payload):
     logger.log('Kaltura session (Apptoken KS created) using token ID ' + token_id)
     return ksession
 
-def resolveLabels(label, ks, log_info: str):
-
+def resolveSession(label, ks, log_info: str):
     Denied = False
     access_restrictions = AccessRestrictions.query.get(1)
     force_labels = access_restrictions.force_labels
@@ -174,6 +173,10 @@ def resolveLabels(label, ks, log_info: str):
         if token.label == label:
             matched_token_id = token.kaltura_token_id
             matched_token = token.token
+            
+    if matched_token_id == '':
+        logger.log('No token found for label: ' + label)
+        Denied = True
 
     # Deny if label is empty or not matched, but forced
     if force_labels:
@@ -181,28 +184,29 @@ def resolveLabels(label, ks, log_info: str):
             logger.log('Action denied: ' + log_info + '. Force labels is on.')
             Denied = True
 
-    # If not denied and if we have a label
-    if not Denied:
-        if matched_token_id != '' or (force_labels and ks == ''):
+    # If denied, get out
+    if Denied and ks == '':
+        return None
 
-            # If a label is passed in, use it if we've found it.
-            if force_labels == False :
-                logger.log('Label used and labels aren\'t being forced: ' + log_info)
-            
-            # Generate a KS for the associated token and id
-            logger.log('Generating a KS with token id: ' + matched_token_id)
-            payload = {
-                'kaltura_token_id': matched_token_id,
-                'token': matched_token
-            }
-            
-            ks = start_ksession(payload)
+    # If not denied and if we have a label
+    if matched_token_id != '' or (force_labels and ks == ''):
+
+        # If a label is passed in, use it if we've found it.
+        if force_labels == False :
+            logger.log('Label used and labels aren\'t being forced: ' + log_info)
         
-    if (not Denied) and (ks != ''):
+        # Generate a KS for the associated token and id
+        logger.log('Generating a KS with token id: ' + matched_token_id)
+        payload = {
+            'kaltura_token_id': matched_token_id,
+            'token': matched_token
+        }
+        
+        ks = start_ksession(payload)
+    elif ks != '':
         if log_info: logger.log(log_info)
-        resolved_ks = ks
         
-    return resolved_ks
+    return ks
 
 def check_token(token_id):
     
