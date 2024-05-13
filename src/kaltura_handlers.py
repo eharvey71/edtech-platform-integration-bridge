@@ -173,8 +173,11 @@ def resolveSession(label, ks, log_info: str):
         if token.label == label:
             matched_token_id = token.kaltura_token_id
             matched_token = token.token
-            
-    if matched_token_id == '':
+            logger.log('Token found for label: ' + label)
+            break
+    
+    # Deny if label is provided but not found
+    if matched_token_id == '' and label != '':
         logger.log('No token found for label: ' + label)
         Denied = True
 
@@ -182,30 +185,33 @@ def resolveSession(label, ks, log_info: str):
     if force_labels:
         if label == '' or matched_token_id == '':
             logger.log('Action denied: ' + log_info + '. Force labels is on.')
+            ks = ''
+            log_info = ''
             Denied = True
 
-    # If denied, get out
-    if Denied and ks == '':
-        return None
-
     # If not denied and if we have a label
-    if matched_token_id != '' or (force_labels and ks == ''):
+    if not Denied:
+        if matched_token_id != '' or (force_labels and ks == ''):
 
-        # If a label is passed in, use it if we've found it.
-        if force_labels == False :
-            logger.log('Label used and labels aren\'t being forced: ' + log_info)
-        
-        # Generate a KS for the associated token and id
-        logger.log('Generating a KS with token id: ' + matched_token_id)
-        payload = {
-            'kaltura_token_id': matched_token_id,
-            'token': matched_token
-        }
-        
-        ks = start_ksession(payload)
-    elif ks != '':
-        if log_info: logger.log(log_info)
-        
+            # If a label is passed in, use it if we've found it.
+            if force_labels == False :
+                logger.log('Label used and labels aren\'t being forced')
+            
+            # Generate a KS for the associated token and id
+            logger.log('Generating a KS with token id: ' + matched_token_id)
+            payload = {
+                'kaltura_token_id': matched_token_id,
+                'token': matched_token
+            }
+            
+            ks = start_ksession(payload)
+            
+        elif force_labels:
+            ks = ''
+            if log_info: logger.log(log_info)
+            log_info = ''
+    
+    if log_info: logger.log(log_info)    
     return ks
 
 def check_token(token_id):
