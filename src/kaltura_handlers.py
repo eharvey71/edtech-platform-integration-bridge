@@ -195,11 +195,11 @@ def handle_denied_access(ks, log_info, force_labels):
     return ks if ks else ''
 
 def handle_valid_token(matched_token, log_info, force_labels):
+    if log_info:
+        logger.log(log_info)
     if not force_labels:
         logger.log('Label used and labels aren\'t being forced')
     logger.log(f'Generating a KS with token id: {matched_token["kaltura_token_id"]}')
-    if log_info:
-        logger.log(log_info)
     return start_ksession(matched_token)
 
 def check_token(token_id):
