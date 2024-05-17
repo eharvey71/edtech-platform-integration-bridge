@@ -42,7 +42,11 @@ def get_transcript(entry_id, ks='', label=''):
     # Kaltura only returns only XML responses for entry_id/transcript requests
     # JSON is returned only when using an asset id.
     cap_asset_response = get_caption_list(entry_id, ks, label)
-    asset_id = cap_asset_response["objects"][0]["id"]
+    try:
+        asset_id = cap_asset_response["objects"][0]["id"]
+    except IndexError:
+        logger.log('No caption asset found for entry ID: ' + str(entry_id))
+        return {"objects": []}
     
     log_info = 'Get caption transcript for entry id: ' + entry_id
     ks = resolve_session(label, ks, log_info)
