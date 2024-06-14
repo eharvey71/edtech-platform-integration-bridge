@@ -8,6 +8,7 @@ get:
       description: "Successfully read token list"
   security:
     - basic: []
+    - jwt: ['secret']
 post:
   operationId: "src.tokens.add_existing"
   tags:

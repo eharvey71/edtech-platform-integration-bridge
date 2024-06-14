@@ -11,34 +11,396 @@ servers:
 
 components:
   schemas:
-    $ref: "./schemas/_index.yml"
+    KalturaAppToken:
+      type: "object"
+      required:
+        - token
+      properties:
+        kaltura_token_id:
+          type: "string"
+        token:
+          type: "string"
+        updated_at:
+          type: "integer"
+        status:
+          type: "integer"
+        session_type:
+          type: "integer"
+        expiry:
+          type: "integer"
+        session_duration:
+          type: "integer"
+        session_user_id:
+          type: "string"
+        session_privileges:
+          type: "string"
+        description:
+          type: "string"
+        label:
+          type: "string"
+    CreateAppTokenSession:
+      type: "object"
+      properties:
+        kaltura_token_id:
+          type: "string"
+        token:
+          type: "string"
   parameters:
-    $ref: "./parameters/_index.yml"
+    kaltura_token_id:
+      name: "kaltura_token_id"
+      description: "ID of the token"
+      in: path
+      required: true
+      schema:
+        type: "string"
+    note_id:
+      name: "note_id"
+      description: "ID of the note"
+      in: path
+      required: true
+      schema:
+        type: "string"
+    entry_id:
+      name: "entry_id"
+      description: "ID of a Kaltura entry"
+      in: query
+      required: true
+      schema:
+        type: "string"
+    category_id:
+      name: "category_id"
+      description: "ID of a Kaltura category"
+      in: query
+      schema:
+        type: "string"
+    ks:
+      name: "ks"
+      description: "Kaltura session key"
+      in: query
+      required: true
+      schema:
+        type: "string"
+    label:
+      name: "label"
+      description: "Label correlating to a stored app token"
+      in: query
+      schema:
+        type: "string"
+    kaltura_tags:
+      name: "kaltura_tags"
+      description: "tags used as a metadata identifer on Kaltura objects (i.e. entries or categories)"
+      in: query
+      schema:
+        type: "string"
+    freetext:
+      name: "freetext"
+      description: "An option for listing category objects. For example, a name attached to a category can be used here (Canvas course name, etc)"
+      in: query
+      schema:
+        type: "string"
+    full_cat_id:
+      name: "full_cat_id"
+      description: "Full ID of a Kaltura category. Usually in a format similar to Canvas>site>channels>1234512"
+      in: query
+      schema:
+        type: "string"
   securitySchemes:
-    $ref: "./security/_index.yml"
-
+    basic:
+      type: 'http'
+      scheme: 'basic'
+      x-basicInfoFunc: src.auth_handler.swag_auth
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: src.auth_handler.decode_token
 paths:
   /tokensession:
-    $ref: "./paths/kaltura-tokensession.yml"
+    post:
+      operationId: "src.kaltura_handlers.start_ksession"
+      tags:
+        - App Token Session (Uses Kaltura API)
+      summary: "Create a session using a Kaltura App Token"
+      requestBody:
+        x-body-name: payload
+        description: "Session info"
+        required: true
+        content:
+          application/json:
+            schema:
+              #$ref: "#/components/schemas/CreateAppTokenSession"
+              type: "object"
+              properties:
+                kaltura_token_id:
+                  type: "string"
+                token:
+                  type: "string"
+      responses:
+        "200":
+          description: "Successfully created app token session"
   /kaltura-entries:
-    $ref: "./paths/kaltura-entries.yml"
+    get:
+      operationId: "src.kaltura_handlers.get_entries_by_category"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Retrieve all entries for a specific category or by using the full name of the category"
+      parameters:
+        - $ref: "#/components/parameters/category_id"
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+        - $ref: "#/components/parameters/full_cat_id"
+      responses:
+        "200":
+          description: "Successfully retrieved entries"
   /kaltura-list-captions:
-    $ref: "./paths/kaltura-get-caption-list.yml"
+    get:
+      operationId: "src.kaltura_handlers.get_caption_list"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Retrieve current caption asset for a Kaltura entry"
+      parameters:
+        - $ref: "#/components/parameters/entry_id"
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+      responses:
+        "200":
+          description: "Successfully retrieved caption asset"
   /kaltura-transcript:
-    $ref: "./paths/kaltura-get-transcript.yml"
+    get:
+      operationId: "src.kaltura_handlers.get_transcript"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Retrieve a caption transcript for a Kaltura entry"
+      parameters:
+        - $ref: "#/components/parameters/entry_id"
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+      responses:
+        "200":
+          description: "Successfully retrieved caption transcript"
   /kaltura-categories:
-    $ref: "./paths/kaltura-categories.yml"
+    get:
+      operationId: "src.kaltura_handlers.filter_category"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Return Kaltura Categories based on tag or freetext search"
+      parameters:
+        - $ref: "#/components/parameters/kaltura_tags"
+        - $ref: "#/components/parameters/freetext"
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+      responses:
+        "200":
+          description: "Successfully retrieved entries"
   /kaltura-category-info:
-    $ref: "./paths/kaltura-category-info.yml"
+    get:
+      operationId: "src.kaltura_handlers.get_category_info"
+      tags:
+        - "Caption and Entry Assets (Uses Kaltura API)"
+      summary: "Retrieve information for a specific Kaltura category ID"
+      parameters:
+        - $ref: "#/components/parameters/category_id"
+          required: true
+        - $ref: "#/components/parameters/ks"
+        - $ref: "#/components/parameters/label"
+      responses:
+        "200":
+          description: "Successfully retrieved category information"
   /tokens/{kaltura_token_id}: 
-    $ref: "./paths/get-one-token.yml"
+    get:
+      operationId: "src.tokens.read_one"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Read one token"
+      parameters:
+        - $ref: "#/components/parameters/kaltura_token_id"
+      responses:
+        "200":
+          description: "Successfully read one token"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KalturaAppToken'
+      security:
+        - basic: []
+        - jwt: ['secret']
   /tokens:
-    $ref: "./paths/tokens.yml"
+    get:
+      operationId: "src.tokens.read_all"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Read the list of Kaltura App Tokens"
+      responses:
+        "200":
+          description: "Successfully read token list"
+      security:
+        - basic: []
+        - jwt: ['secret']
+    post:
+      operationId: "src.tokens.add_existing"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Add a Kaltura App Token"
+      requestBody:
+        description: "Token to add"
+        required: True
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                kaltura_token_id:
+                  type: "string"
+                token:
+                  type: "string"
+        x-body-name: payload
+      responses:
+        "201":
+          description: "Successfully added token"
+      security:
+        - basic: []
+        - jwt: ['secret']
+    put:
+      operationId: "src.tokens.update_existing"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Update a Kaltura App Token"
+      requestBody:
+        description: "Token to update"
+        required: True
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                kaltura_token_id:
+                  type: "string"
+                token:
+                  type: "string"
+                session_privileges:
+                  type: "string"
+                session_user_id:
+                  type: "string"
+                session_duration:
+                  type: "integer"
+                expiry:
+                  type: "integer"
+                description:
+                  type: "string"
+        x-body-name: payload
+      responses:
+        "200":
+          description: "Successfully updated token"
+      security:
+        - basic: []
+        - jwt: ['secret']
   /token/{kaltura_token_id}:
-    $ref: "./paths/token-delete.yml"
+    delete:
+      tags:
+        - App Tokens (Integration Manager Only)
+      operationId: "src.tokens.delete"
+      summary: "Delete a token"
+      parameters:
+        - $ref: "#/components/parameters/kaltura_token_id"
+      responses:
+        "204":
+          description: "Successfully deleted token"
+      security:
+        - basic: []
+        - jwt: ['secret']
   /notes:
-    $ref: "./paths/create-note.yml"
+    post:
+      operationId: "src.notes.create"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Create a note associated with a token"
+      requestBody:
+          description: "Note to create"
+          required: True
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  kaltura_token_id:
+                    type: "string"
+                  content:
+                    type: "string"
+          x-body-name: "note"
+      responses:
+        "201":
+          description: "Successfully created a note"
+      security:
+        - basic: []
+        - jwt: ['secret']
   /notes/{note_id}:
-    $ref: "./paths/token-notes.yml"
+    get:
+      operationId: "src.notes.read_one"
+      tags:
+        - App Tokens (Integration Manager Only)
+      summary: "Read one note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "200":
+          description: "Successfully read one note"
+      security:
+        - basic: []
+    put:
+      tags:
+        - App Tokens (Integration Manager Only)
+      operationId: "src.notes.update"
+      summary: "Update a note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "200":
+          description: "Successfully updated note"
+      security:
+        - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                content:
+                  type: "string"
+        x-body-name: "note"
+    delete:
+      tags:
+        - App Tokens (Integration Manager Only)
+      operationId: "src.notes.delete"
+      summary: "Delete a note"
+      parameters:
+        - $ref: "#/components/parameters/note_id"
+      responses:
+        "204":
+          description: "Successfully deleted note"
+      security:
+        - basic: []
   /logs:
-    $ref: "./paths/get-logs.yml"
+    get:
+      tags:
+        - Logs
+      summary: Retrieve application logs
+      description: Returns the contents of the application logs.
+      operationId: src.logs_handler.get_logs
+      responses:
+        '200':
+          description: Successfully retrieved logs
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Log file not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      security:
+        - jwt: ['secret']

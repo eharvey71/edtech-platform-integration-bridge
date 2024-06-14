@@ -1,0 +1,44 @@
+# swagger.yml
+
+openapi: 3.0.0
+info:
+  title: "Integration Manager API Spec"
+  description: "Integration Manager adapted for Kaltura. This swagger interface is using Open API for easier abstraction of APIs for vendors and institutions."
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    $ref: "./schemas/_index.yml"
+  parameters:
+    $ref: "./parameters/_index.yml"
+  securitySchemes:
+    $ref: "./security/_index.yml"
+
+paths:
+  /tokensession:
+    $ref: "./paths/kaltura-tokensession.yml"
+  /kaltura-entries:
+    $ref: "./paths/kaltura-entries.yml"
+  /kaltura-list-captions:
+    $ref: "./paths/kaltura-get-caption-list.yml"
+  /kaltura-transcript:
+    $ref: "./paths/kaltura-get-transcript.yml"
+  /kaltura-categories:
+    $ref: "./paths/kaltura-categories.yml"
+  /kaltura-category-info:
+    $ref: "./paths/kaltura-category-info.yml"
+  /tokens/{kaltura_token_id}: 
+    $ref: "./paths/get-one-token.yml"
+  /tokens:
+    $ref: "./paths/tokens.yml"
+  /token/{kaltura_token_id}:
+    $ref: "./paths/token-delete.yml"
+  /notes:
+    $ref: "./paths/create-note.yml"
+  /notes/{note_id}:
+    $ref: "./paths/token-notes.yml"
+  /logs:
+    $ref: "./paths/get-logs.yml"

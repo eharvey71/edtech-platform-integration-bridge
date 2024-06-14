@@ -14,3 +14,4 @@ get:
             $ref: '#/components/schemas/KalturaAppToken'
   security:
     - basic: []
+    - jwt: ['secret']

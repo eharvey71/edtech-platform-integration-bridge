@@ -10,4 +10,4 @@ get:
     - $ref: "#/components/parameters/label"
   responses:
     "200":
-      description: "Successfully retrieved entries"
+      description: "Successfully retrieved category information"

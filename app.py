@@ -1,8 +1,10 @@
-from flask import render_template, redirect, url_for, send_from_directory
+from flask import render_template, redirect, url_for, send_from_directory, make_response
 from flask_login import login_required, current_user
-import config
+import config, logging
 from src.models import User, UICustomizations, VendorProxies
 from config import login_manager
+
+# Import Blueprints
 from auth.routes import auth_bp
 from kaltura.routes import kaltura_bp
 from settings.routes import settings_bp
@@ -25,6 +27,9 @@ def app_globals():
 
 app = config.connex_app
 app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.swagoptions)
+#app.add_api(config.basedir / 'apispecs/swaggerdev.yml', swagger_ui_options=config.swagoptions)
+
+# Register Blueprints
 app.app.register_blueprint(auth_bp, url_prefix='/auth')
 app.app.register_blueprint(kaltura_bp, url_prefix='/kaltura')
 app.app.register_blueprint(settings_bp, url_prefix='/settings')
@@ -47,7 +52,11 @@ def home():
 @app.route('/log')
 @login_required
 def logpage():
-    b_lines = [row for row in reversed(list(open("logs/log", "r")))]
+    #b_lines = [row for row in reversed(list(open("logs/log", "r")))]
+    
+    logger = logging.getLogger("RotatingLog")
+    b_lines = [row for row in reversed(list(open(logger.handlers[0].baseFilename, "r")))]
+
     return render_template('log.html', b_lines=b_lines)
 
 @app.route('/logs/<path:path>')

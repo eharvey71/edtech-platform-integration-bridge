@@ -7,9 +7,10 @@ Bootstrap-Flask==2.4.0
 certifi==2024.2.2
 charset-normalizer==3.3.2
 click==8.1.7
-connexion==3.0.2
+connexion==3.1.0
 ecdsa==0.19.0
 Flask==3.0.3
+Flask-Cors==4.0.1
 Flask-Login==0.6.3
 flask-marshmallow==1.2.1
 Flask-SQLAlchemy==3.1.1
@@ -42,7 +43,7 @@ rsa==4.9
 six==1.16.0
 sniffio==1.3.1
 SQLAlchemy==2.0.29
-starlette==0.32.0.post1
+starlette==0.37.2
 swagger_ui_bundle==1.1.0
 typing_extensions==4.11.0
 urllib3==2.2.1

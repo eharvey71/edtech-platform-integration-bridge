@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from datetime import datetime
 from connexion import FlaskApp #, json_schema
 from connexion.options import SwaggerUIOptions
+from connexion.middleware import MiddlewarePosition
+from starlette.middleware.cors import CORSMiddleware
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bootstrap import Bootstrap5
@@ -15,6 +17,18 @@ swagoptions = SwaggerUIOptions(
     swagger_ui=True, swagger_ui_template_dir=basedir / "swagger-ui"
 )
 connex_app = FlaskApp(__name__, specification_dir=basedir / "apispecs")
+
+# Support for CORS front-end development
+connex_app.add_middleware(
+    CORSMiddleware,
+    position=MiddlewarePosition.BEFORE_EXCEPTION,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "api_key", "Authorization"],
+    expose_headers=["Access-Control-Allow-Origin"]
+)
+
 app = connex_app.app
 
 app.config["DEBUG"] = os.getenv("DEBUG", "True")

@@ -34,6 +34,24 @@ def login_post():
     login_user(user, remember=remember)
     return redirect(url_for('logpage'))
 
+@auth_bp.route('/json-login', methods=['POST'])
+def json_login_post():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user or not check_password_hash(user.password, password):
+        logger.log("JSON login attempt failed for user: " + username)
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    logger.log("JSON login attempt succeeded for user: " + username)
+    login_user(user)
+    token = generate_token(user.id)
+
+    return jsonify({"token": token})
+
 @auth_bp.route('/logout')
 @login_required
 def logout():

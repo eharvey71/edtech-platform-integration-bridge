@@ -9,7 +9,7 @@ COPY . .
 
 # Dev - Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-# RUN pip install --no-cache-dir -r requirements-prod.txt
+#RUN pip install --no-cache-dir -r requirements-prod.txt
 
 # Generate a random secret key and store it in an environment variable
 RUN echo "FLASK_SECRET_KEY=$(openssl rand -base64 32)" > .env
@@ -32,4 +32,4 @@ EXPOSE 80
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
 
 # Production uses gunicorn
-#CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app:app
+# CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app:app
