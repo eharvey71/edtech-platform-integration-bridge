@@ -1,17 +1,18 @@
-Welcome to the EdTech Platform Integration Bridge - Beta Project
+Welcome to the Video Platform Integration Bridge
 ================================================================
 
 Have a look at the documentation for more:
 https://edtech-platform-integration-bridge.readthedocs.io/en/latest/index.html
 
-This iteration serves as a "middleware" application and abstraction tool for working with Kaltura APIs.
+This iteration serves as a "middleware" application and abstraction tool for working with Kaltura and Zoom APIs.
 Due to policies and standards in dealing with sensitive data (students, trainees) it is important for schools (Higher Ed, K12) and corporations to track interactions between third party (external, SaaS, cloud-hosted) vendor integrations and internal platforms.
 
 The integration bridge currently performs the following
 -----------------------------------------------------------------------
 
-* Allows administrators to store and track Kaltura App Tokens. In some cases, many app tokens may need to be created in order to provide proper security.
+* Allows administrators to securely store and track Kaltura App Tokens. In some cases, many app tokens may need to be created in order to provide proper security.
 * Can create customized API endpoints for third party vendors who want to integrate with Kaltura, abstracting existing APIs into only those that are needed.
+* Now supports Zoom API integration. Similar to Kaltura in that it abstracts the Zoom APIs into only those that are needed and provides a way to track interactions.
 * Logs all events.
 * Creates a way to filter on allowed Kaltura categories.
 * Labels (tied to app tokens) can be created. Vendors use the labels for creating Kaltura sessions, preventing direct access to the Kaltura APIs.
@@ -31,8 +32,10 @@ Purpose
 Future development
 ------------------
 
-* Support for LTI 1.3 / Advantage integrations. One connection, abstracting endpoints from many tools into what is needed for a single third party tool.
-* Kaltura support will become a separate module. Support for major LMSs.
+* Shifting focus from LMS Support to purely video management platforms and lecture capture.
+* YouTube, Panopto, Canvas Studio, and Yuja are on the roadmap.
+* One connection, abstracting endpoints from many tools into what is needed for a single third party tool.
+* Done - Kaltura support will become a separate module. Support for major LMSs.
 
 Visit my website: `edutechdev.com <https://www.edutechdev.com/>`_
 

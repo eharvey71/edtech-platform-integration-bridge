@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "EdTech Platform Integration Bridge"
+project = "Video Platform Integration Bridge"
 copyright = "2024, Open Source Software"
 author = "Eric Harvey, Enwise Webtech"
 
