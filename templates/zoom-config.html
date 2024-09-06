@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}
+Zoom Config
+{% endblock %}
+{% block head %}
+{{ super() }} 
+{% endblock %}
+{% block content %}
+
+<div style="border-radius: 5px; padding: 20px">
+  <h3>Zoom Proxy Configuration</h3>
+  <hr />
+  <form action="/zoom/config?f=zoom_config" method="post" id="zoom_config">
+    <h4>Zoom Client Settings</h4>
+    <label for="zoom-client-id">Zoom Client ID</label>
+    <div class="col-sm-3">
+      <input
+        class="form-control"
+        type="text"
+        id="zoom-client-id"
+        name="zoom-client-id"
+        value={{ zoom_config.zoom_client_id }}
+      ><br />
+    </div>
+    <label for="canvas-client-id">Zoom Client Secret</label>
+    <div class="col-sm-2">
+      <input
+        class="form-control"
+        type="password"
+        id="zoom-client-secret"
+        name="zoom-client-secret"
+        value={{ zoom_config.zoom_client_secret }}
+      ><br />
+    </div>
+    <label for="zoom-client-secret">Zoom Account ID</label>
+    <div class="col-sm-6">
+      <input
+        class="form-control"
+        type="text"
+        id="zoom-account-id"
+        name="zoom-account-id"
+        value={{ zoom_config.zoom_account_id }}
+      ><br />
+    </div>
+  </form>
+  <button form="zoom_config" value="submit" type="submit" class="btn btn-info" data-action="update-zoom-config">
+    Update
+  </button>
+</div>
+
+{% endblock %}

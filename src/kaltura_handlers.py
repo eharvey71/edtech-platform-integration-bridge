@@ -1,7 +1,6 @@
 from KalturaClient import *
 from KalturaClient.Plugins.Core import *
 from pprint import pprint
-import logging
 
 import hashlib
 import json, requests, src.logger as logger

@@ -62,6 +62,20 @@
         Enable Canvas Proxy
       </label>
     </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value={{ vendor_proxies.zoom_proxy_enabled }}
+        id="zoom-proxy-enabled"
+        name="zoom-proxy-enabled"
+        {% if vendor_proxies.zoom_proxy_enabled %} checked=""
+        {% endif %}
+      />
+      <label class="form-check-label" for="zoom-proxy-enabled">
+        Enable Zoom Proxy
+      </label>
+    </div>
   </form>
   <br />
   <button

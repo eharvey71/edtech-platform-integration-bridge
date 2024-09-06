@@ -1,0 +1,88 @@
+# swagger.yml
+
+openapi: 3.0.0
+info:
+  title: "Integration Manager API Spec"
+  description: "Integration Manager adapted for Zoom. This swagger interface is using Open API for easier abstraction of APIs for vendors and institutions."
+  version: "1.0.0"
+
+servers:
+  - url: "/zoomapi"
+
+paths:
+  /meeting/{meeting_id}/transcript:
+    get:
+      summary: Get meeting transcript
+      operationId: src.zoom_handlers.get_meeting_transcript
+      parameters:
+        - name: meeting_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transcript:
+                    type: string
+
+  /meeting/{meeting_id}/recordings:
+    get:
+      summary: Get meeting recordings
+      operationId: src.zoom_handlers.get_meeting_recordings
+      parameters:
+        - name: meeting_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordings:
+                    type: array
+                    items:
+                      type: object
+
+  /meeting/{meeting_id}/lms-context:
+    get:
+      summary: Get meeting details with LMS context
+      description: Retrieve meeting details and attempt to extract LMS context
+      operationId: src.zoom_handlers.get_meeting_with_lms_context
+      parameters:
+        - name: meeting_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the Zoom meeting
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meeting_details:
+                    type: object
+                    description: Detailed information about the meeting
+                  canvas_course_id:
+                    type: string
+                    description: The extracted Canvas course ID, if available
+        '400':
+          description: Bad request
+        '404':
+          description: Meeting not found
+        '500':
+          description: Internal server error

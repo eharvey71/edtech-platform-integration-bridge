@@ -35,6 +35,7 @@ class VendorProxies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kaltura_proxy_enabled = db.Column(db.Boolean, nullable=False)
     canvas_proxy_enabled = db.Column(db.Boolean, nullable=False)
+    zoom_proxy_enabled = db.Column(db.Boolean, nullable=False)
 
 class Note(db.Model):
     __tablename__ = "note"
@@ -93,6 +94,13 @@ class CanvasOauthConfig(db.Model):
     canvas_client_id = db.Column(db.Integer, nullable=False)
     canvas_client_secret = db.Column(db.String(128), nullable=False)
     redirect_uri = db.Column(db.String(128), nullable=False)
+    
+class ZoomClientConfig(db.Model):
+    __tablename__ = "zoom_client_config"
+    id = db.Column(db.Integer, primary_key=True)
+    zoom_client_id = db.Column(db.String(128), nullable=False)
+    zoom_client_secret = db.Column(db.String(128), nullable=False)
+    zoom_account_id = db.Column(db.String(128), nullable=False)
     
 class CanvasAuthorizedUsers(db.Model):
     __tablename__ = "canvas_authorized_users"

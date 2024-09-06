@@ -64,14 +64,34 @@
             </li>
             {% endif %}
             <!-- End of Canvas dropdown -->
+            <!-- Zoom dropdown menu -->
+            {% if zoom_enabled %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="ZoomDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Zoom
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="ZoomDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('zoom.zoom_config') }}">Configure</a></li>
+              </ul>
+            </li>
+            {% endif %}
+            <!-- End of Canvas dropdown -->
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('logpage') }}">View Logs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('settings.main_config') }}">Configure</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('apidocs') }}">API Docs</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="apiDocsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">API Docs</a>
+              <ul class="dropdown-menu" aria-labelledby="apiDocsDropdown">
+                {% if kaltura_enabled %}
+                  <li><a class="dropdown-item" href="{{ url_for('apidocs', api_type='kaltura') }}">Kaltura</a></li>
+                {% endif %}
+                {% if zoom_enabled %}
+                  <li><a class="dropdown-item" href="{{ url_for('apidocs', api_type='zoom') }}">Zoom</a></li>
+                {% endif %}
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>

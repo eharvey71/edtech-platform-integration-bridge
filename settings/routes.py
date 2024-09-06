@@ -25,6 +25,8 @@ def main_config():
         elif request.args.get("f") == "vendorproxies":
             vendor_proxies.kaltura_proxy_enabled = True if request.form.get('kaltura-proxy-enabled') else False
             vendor_proxies.canvas_proxy_enabled = True if request.form.get('canvas-proxy-enabled') else False
+            vendor_proxies.zoom_proxy_enabled = True if request.form.get('zoom-proxy-enabled') else False
+
             db.session.add(vendor_proxies)
             db.session.commit()
             flash('Proxy configurations updated', 'warning')

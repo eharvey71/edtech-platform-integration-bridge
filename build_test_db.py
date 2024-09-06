@@ -1,7 +1,8 @@
 from datetime import datetime
 from config import app, db
 from src.models import Note, KalturaAppToken, User, AccessRestrictions, \
-    AppTokenSessionDefaults, UICustomizations, VendorProxies, CanvasOauthConfig, CanvasAuthorizedUsers
+    AppTokenSessionDefaults, UICustomizations, VendorProxies, CanvasOauthConfig, CanvasAuthorizedUsers, \
+    ZoomClientConfig
 
 SAMPLE_TOKENS = [
     {
@@ -140,13 +141,14 @@ with app.app_context():
     db.session.add(new_app_token_session_defaults)
    
     new_ui_customizations = UICustomizations(
-        integrator_title="EdTech Platform Integration Bridge"
+        integrator_title="Video Platform Integration Bridge"
     )
     db.session.add(new_ui_customizations)
     
     proxy_status = VendorProxies(
         kaltura_proxy_enabled=True,
-        canvas_proxy_enabled=False
+        canvas_proxy_enabled=False,
+        zoom_proxy_enabled=False
     )
     db.session.add(proxy_status)
 
@@ -157,5 +159,12 @@ with app.app_context():
         redirect_uri="https://example.com/oauth"
     )
     db.session.add(canvas_oauth_config)
+    
+    zoom_client_config = ZoomClientConfig(
+        zoom_client_id="123456",
+        zoom_client_secret="abcdef",
+        zoom_account_id="a1b2c3d4e5f6g7"
+    )
+    db.session.add(zoom_client_config)
     
     db.session.commit()

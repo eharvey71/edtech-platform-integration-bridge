@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, send_from_directory, make_response
+from flask import render_template, redirect, url_for, send_from_directory, request, flash
 from flask_login import login_required, current_user
 import config, logging
 from src.models import User, UICustomizations, VendorProxies
@@ -9,11 +9,15 @@ from auth.routes import auth_bp
 from kaltura.routes import kaltura_bp
 from settings.routes import settings_bp
 from canvas.routes import canvas_bp
+from zoom.routes import zoom_bp
+
+def get_vendor_proxies():
+    return VendorProxies.query.get(1)
 
 @config.connex_app.app.context_processor
 def app_globals():
     app_title = UICustomizations.query.get(1)
-    proxies = VendorProxies.query.get(1)
+    proxies = get_vendor_proxies()
     if app_title:
         title = app_title.integrator_title
     else:
@@ -21,19 +25,29 @@ def app_globals():
     if proxies:
         kaltura_proxy_enabled = proxies.kaltura_proxy_enabled
         canvas_proxy_enabled = proxies.canvas_proxy_enabled
+        zoom_proxy_enabled = proxies.zoom_proxy_enabled
     return dict(custom_title=title,
                 kaltura_enabled=kaltura_proxy_enabled,
-                canvas_enabled=canvas_proxy_enabled)
+                canvas_enabled=canvas_proxy_enabled,
+                zoom_enabled=zoom_proxy_enabled)
 
 app = config.connex_app
-app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.swagoptions)
-#app.add_api(config.basedir / 'apispecs/swaggerdev.yml', swagger_ui_options=config.swagoptions)
+
+# Add API based on proxies
+with app.app.app_context():
+    proxies = get_vendor_proxies()
+    if proxies:
+        if proxies.kaltura_proxy_enabled:
+            app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.swagoptions)
+        if proxies.zoom_proxy_enabled:
+            app.add_api(config.basedir / 'apispecs/swaggerzoom.yml', swagger_ui_options=config.swagoptions)
 
 # Register Blueprints
 app.app.register_blueprint(auth_bp, url_prefix='/auth')
 app.app.register_blueprint(kaltura_bp, url_prefix='/kaltura')
 app.app.register_blueprint(settings_bp, url_prefix='/settings')
 app.app.register_blueprint(canvas_bp, url_prefix='/canvas')
+app.app.register_blueprint(zoom_bp, url_prefix='/zoom')
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -67,7 +81,19 @@ def send_report(path):
 @app.route('/apidocs')
 @login_required
 def apidocs():
-    return render_template('apidocs.html')
+    api_type = request.args.get('api_type', 'kaltura')  # Default to Kaltura if not specified
+    proxies = get_vendor_proxies()
+    
+    if api_type == 'kaltura' and proxies.kaltura_proxy_enabled:
+        api_url = "/api/ui/"
+    elif api_type == 'zoom' and proxies.zoom_proxy_enabled:
+        api_url = "/zoomapi/ui/"
+    else:
+        # Handle the case where the requested API is not enabled
+        flash('The requested API documentation is not available.', 'warning')
+        return redirect(url_for('home'))
+
+    return render_template('apidocs.html', api_url=api_url)
 
 @app.route('/profile')
 @login_required
