@@ -39,6 +39,13 @@ app.config["SECRET_KEY"] = os.getenv(
     "FLASK_SECRET_KEY", "missing_flask_secret_key - check .env"
 )
 app.config["MESSAGE_FLASHING_OPTIONS"] = {"duration": 5}
+# OAuth2 configurations
+app.config['GITHUB_CLIENT_ID'] = os.getenv('GITHUB_CLIENT_ID')
+app.config['GITHUB_CLIENT_SECRET'] = os.getenv('GITHUB_CLIENT_SECRET')
+app.config['OKTA_CLIENT_ID'] = os.getenv('OKTA_CLIENT_ID')
+app.config['OKTA_CLIENT_SECRET'] = os.getenv('OKTA_CLIENT_SECRET')
+app.config['OKTA_DOMAIN'] = os.getenv('OKTA_DOMAIN')
+
 
 @app.template_filter("datetimeformat")
 def datetime_format(timestamp):

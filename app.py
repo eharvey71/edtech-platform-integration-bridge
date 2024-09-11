@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 import config, logging
 from src.models import User, UICustomizations, VendorProxies
 from config import login_manager
+from src.oauth2_config import init_oauth, github_token_info, okta_token_info, oauth2_scope_validate
 
 # Import Blueprints
 from auth.routes import auth_bp
@@ -33,12 +34,40 @@ def app_globals():
 
 app = config.connex_app
 
+# Initialize OAuth
+init_oauth(app.app)
+
 # Add API based on proxies
 with app.app.app_context():
     proxies = get_vendor_proxies()
     if proxies:
         if proxies.kaltura_proxy_enabled:
-            app.add_api(config.basedir / 'apispecs/swagger.yml', swagger_ui_options=config.swagoptions)
+            app.add_api(config.basedir / 'apispecs/swagger.yml', 
+                        options={
+                            "security_definitions": {
+                                "oauth2_github": {
+                                    "type": "oauth2",
+                                    "flow": "accessCode",
+                                    "authorizationUrl": "https://github.com/login/oauth/authorize",
+                                    "tokenUrl": "https://github.com/login/oauth/access_token",
+                                    "scopes": {
+                                        "user:email": "Read user email address"
+                                    }
+                                },
+                                "oauth2_okta": {
+                                    "type": "oauth2",
+                                    "flow": "accessCode",
+                                    "authorizationUrl": f"{app.app.config['OKTA_DOMAIN']}/oauth2/default/v1/authorize",
+                                    "tokenUrl": f"{app.app.config['OKTA_DOMAIN']}/oauth2/default/v1/token",
+                                    "scopes": {
+                                        "openid": "OpenID Connect scope",
+                                        "profile": "User profile information",
+                                        "email": "User email address"
+                                    }
+                                }
+                            },
+                            "security": [{"oauth2_github": ["user:email"]}, {"oauth2_okta": ["openid", "profile", "email"]}]
+                        }, swagger_ui_options=config.swagoptions)
         if proxies.zoom_proxy_enabled:
             app.add_api(config.basedir / 'apispecs/swaggerzoom.yml', swagger_ui_options=config.swagoptions)
 

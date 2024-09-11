@@ -1,0 +1,125 @@
+.
+├── Dockerfile
+├── LICENSE
+├── README.rst
+├── __pycache__
+│   ├── app.cpython-312.pyc
+│   ├── auth_handler.cpython-312.pyc
+│   ├── config.cpython-312.pyc
+│   ├── kaltura_handlers.cpython-312.pyc
+│   ├── logger.cpython-312.pyc
+│   ├── logs_handler.cpython-312.pyc
+│   ├── models.cpython-312.pyc
+│   ├── notes.cpython-312.pyc
+│   └── tokens.cpython-312.pyc
+├── apispecs
+│   ├── parameters
+│   ├── paths
+│   ├── schemas
+│   ├── security
+│   ├── swagger-refs-version.yml
+│   ├── swagger.yml
+│   └── swaggerzoom.yml
+├── app.py
+├── auth
+│   ├── __pycache__
+│   └── routes.py
+├── build_eric.py
+├── build_lc_pbsc.py
+├── build_test_db.py
+├── canvas
+│   ├── __pycache__
+│   └── routes.py
+├── config.py
+├── database
+│   └── epib.db
+├── dir_structure
+├── docs
+│   ├── administration.rst
+│   ├── conf.py
+│   ├── customization.rst
+│   ├── deployment.rst
+│   ├── img
+│   ├── index.rst
+│   └── requirements.txt
+├── kaltura
+│   ├── __pycache__
+│   └── routes.py
+├── logs
+│   ├── log
+│   └── log.1
+├── requirements-prod.txt
+├── requirements.txt
+├── scripts
+│   └── manual_test_zoom.py
+├── settings
+│   ├── __pycache__
+│   └── routes.py
+├── src
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── auth_handler.py
+│   ├── canvas_handlers.py
+│   ├── custom_file_handler.py
+│   ├── kaltura_handlers.py
+│   ├── logger.py
+│   ├── logs_handler.py
+│   ├── models.py
+│   ├── notes.py
+│   ├── oauth2_config.py
+│   ├── tokens.py
+│   └── zoom_handlers.py
+├── static
+│   ├── css
+│   ├── favicon.ico
+│   └── js
+├── swagger-ui
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── index.css
+│   ├── index.html
+│   ├── index.j2
+│   ├── oauth2-redirect.html
+│   ├── swagger-initializer.js
+│   ├── swagger-ui-bundle.js
+│   ├── swagger-ui-bundle.js.map
+│   ├── swagger-ui-es-bundle-core.js
+│   ├── swagger-ui-es-bundle-core.js.map
+│   ├── swagger-ui-es-bundle.js
+│   ├── swagger-ui-es-bundle.js.map
+│   ├── swagger-ui-standalone-preset.js
+│   ├── swagger-ui-standalone-preset.js.map
+│   ├── swagger-ui.css
+│   ├── swagger-ui.css.map
+│   ├── swagger-ui.js
+│   └── swagger-ui.js.map
+├── templates
+│   ├── _new_token.html
+│   ├── _note_content.html
+│   ├── _note_create_form.html
+│   ├── _token_content.html
+│   ├── _token_manage.html
+│   ├── adduser.html
+│   ├── apidocs.html
+│   ├── base.html
+│   ├── canvas-test.html
+│   ├── kaltura-addtokens.html
+│   ├── kaltura-config.html
+│   ├── kaltura-manage.html
+│   ├── log.html
+│   ├── login.html
+│   ├── main-config.html
+│   ├── profile.html
+│   └── zoom-config.html
+├── tests
+│   └── test_zoom_handlers.py
+├── venv
+│   ├── bin
+│   ├── include
+│   ├── lib
+│   └── pyvenv.cfg
+└── zoom
+    ├── __pycache__
+    └── routes.py
+
+34 directories, 89 files

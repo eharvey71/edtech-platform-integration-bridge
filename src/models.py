@@ -101,6 +101,8 @@ class ZoomClientConfig(db.Model):
     zoom_client_id = db.Column(db.String(128), nullable=False)
     zoom_client_secret = db.Column(db.String(128), nullable=False)
     zoom_account_id = db.Column(db.String(128), nullable=False)
+    access_key = db.Column(db.String(128), nullable=True)
+    require_access_key = db.Column(db.Boolean, default=False, nullable=False)
     
 class CanvasAuthorizedUsers(db.Model):
     __tablename__ = "canvas_authorized_users"

@@ -9,6 +9,17 @@ info:
 servers:
   - url: "/zoomapi"
 
+components:
+  securitySchemes:
+    AccessKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Access-Key
+      x-apikeyInfoFunc: src.zoom_handlers.validate_access_key
+
+security:
+  - AccessKeyAuth: []
+
 paths:
   /meeting/{meeting_id}/transcript:
     get:
@@ -29,7 +40,30 @@ paths:
                 type: object
                 properties:
                   transcript:
-                    type: string
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                        start:
+                          type: string
+                        end:
+                          type: string
+                        text:
+                          type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Transcript not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transcript:
+                    type: object
+                    nullable: true
 
   /meeting/{meeting_id}/recordings:
     get:

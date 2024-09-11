@@ -105,15 +105,35 @@ components:
       schema:
         type: "string"
   securitySchemes:
-    basic:
-      type: 'http'
-      scheme: 'basic'
-      x-basicInfoFunc: src.auth_handler.swag_auth
-    jwt:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      x-bearerInfoFunc: src.auth_handler.decode_token
+      basic:
+        type: 'http'
+        scheme: 'basic'
+        x-basicInfoFunc: src.auth_handler.swag_auth
+      jwt:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+        x-bearerInfoFunc: src.auth_handler.decode_token
+      oauth2_github:
+        type: oauth2
+        flows:
+          authorizationCode:
+            authorizationUrl: https://github.com/login/oauth/authorize
+            tokenUrl: https://github.com/login/oauth/access_token
+            scopes:
+              user:email: Read user email address
+        x-tokenInfoFunc: src.oauth2_config.github_token_info
+      oauth2_okta:
+        type: oauth2
+        flows:
+          authorizationCode:
+            authorizationUrl: ${OKTA_DOMAIN}/oauth2/default/v1/authorize
+            tokenUrl: ${OKTA_DOMAIN}/oauth2/default/v1/token
+            scopes:
+              openid: OpenID Connect scope
+              profile: User profile information
+              email: User email address
+        x-tokenInfoFunc: src.oauth2_config.okta_token_info
 paths:
   /tokensession:
     post:
@@ -224,6 +244,8 @@ paths:
       security:
         - basic: []
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
   /tokens:
     get:
       operationId: "src.tokens.read_all"
@@ -236,6 +258,8 @@ paths:
       security:
         - basic: []
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
     post:
       operationId: "src.tokens.add_existing"
       tags:
@@ -260,6 +284,8 @@ paths:
       security:
         - basic: []
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
     put:
       operationId: "src.tokens.update_existing"
       tags:
@@ -294,6 +320,8 @@ paths:
       security:
         - basic: []
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
   /token/{kaltura_token_id}:
     delete:
       tags:
@@ -308,6 +336,8 @@ paths:
       security:
         - basic: []
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
   /notes:
     post:
       operationId: "src.notes.create"
@@ -333,6 +363,8 @@ paths:
       security:
         - basic: []
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
   /notes/{note_id}:
     get:
       operationId: "src.notes.read_one"
@@ -404,3 +436,5 @@ paths:
                     type: string
       security:
         - jwt: ['secret']
+        - oauth2_github: ['user:email']
+        - oauth2_okta: ['openid', 'profile', 'email']
