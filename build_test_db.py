@@ -163,7 +163,9 @@ with app.app_context():
     zoom_client_config = ZoomClientConfig(
         zoom_client_id="123456",
         zoom_client_secret="abcdef",
-        zoom_account_id="a1b2c3d4e5f6g7"
+        zoom_account_id="a1b2c3d4e5f6g7",
+        access_key = "a12bc3d4e5f6g7h8i9j0",
+        require_access_key = False
     )
     db.session.add(zoom_client_config)
     
